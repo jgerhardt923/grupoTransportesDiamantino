@@ -8,5 +8,12 @@
     "start": "node server.js"
   },
   "author": "jgerhardt",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.0"
+  }
 }
