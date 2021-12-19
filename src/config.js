@@ -12,5 +12,8 @@ module.exports = {
     superUser:{
         name:"adm",
         password:"adm123"
+    },
+    app:{
+        sessionDuration: 5,
     }
 }
