@@ -1,0 +1,12 @@
+{
+  "name": "grupotransportesdiamantino",
+  "version": "1.0.0",
+  "description": "aplicacao para gerenciamento basico de cargas.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "jgerhardt",
+  "license": "ISC"
+}
