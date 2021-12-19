@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "sync": "node src/model/dataBase/sync.js"
+    "sync": "node src/model/dataBase/sync.js",
+    "createSuperUser": "node src/model/dataBase/createSuperUser.js"
   },
   "author": "jgerhardt",
   "license": "ISC",
