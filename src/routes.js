@@ -8,7 +8,7 @@ const router = express.Router();
 router.route("/login")
     .post(loginController.post)
 
-router.unsubscribe("/user")
+router.route("/user")
     .get(userController.get)
     .post(userController.post)
 

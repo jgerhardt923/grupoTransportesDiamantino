@@ -1,4 +1,3 @@
-const res = require("express/lib/response");
 const userModel = require("../model/user")
 
 module.exports = {
