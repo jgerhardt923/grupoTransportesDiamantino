@@ -15,5 +15,9 @@ module.exports = {
     },
     app:{
         sessionDuration: 5,
+    },
+    server:{
+        host:"localhost",
+        port:5000
     }
 }
