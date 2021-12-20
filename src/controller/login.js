@@ -1,9 +1,12 @@
-const userModel = require("../model/user");
 const sessionModel = require("../model/session");
+const userModel = require("../model/user");
 
 const config = require("../config");
 
 module.exports = {
+    get:(req, res)=>{
+        res.sendFile(config.app.staticDir + "template/login.html")
+    },
     post:async(req, res)=>{
             userModel.findOne({
                 where:req.body
@@ -16,7 +19,7 @@ module.exports = {
                     })
                     .then(sess=>{
                         res.cookie("sessionId", sess.id, {expires:sess.expire});
-                        res.send({message:"loged"});
+                        res.redirect("/");
                     })
                 }else{
                     res.send({message:"login or password invalid"})

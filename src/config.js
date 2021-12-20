@@ -1,5 +1,7 @@
 require("dotenv").config()
 
+const path = require("path")
+
 module.exports = {
     dataBase:{
         dialect: process.env.DATA_BASE || "postgres",
@@ -15,6 +17,7 @@ module.exports = {
     },
     app:{
         sessionDuration: 5,
+        staticDir: path.join(__dirname ,"/public/")
     },
     server:{
         host:"localhost",

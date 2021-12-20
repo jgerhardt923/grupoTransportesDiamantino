@@ -3,6 +3,7 @@ const express = require("express");
 const associationController = require("./controller/association");
 const driverController = require("./controller/driver");
 const freightController = require("./controller/freight");
+const indexController = require("./controller/index");
 const localController = require("./controller/local");
 const loginController = require("./controller/login");
 const shippingCompanyController = require("./controller/shippingCompany");
@@ -24,11 +25,15 @@ router.route("/freight")
     .get(freightController.get)
     .post(freightController.post)
 
+router.route("/")
+    .get(indexController.get)
+
 router.route("/local")
     .get(localController.get)
     .post(localController.post)
 
 router.route("/login")
+    .get(loginController.get)
     .post(loginController.post)
 
 router.route("/shippingcompany")

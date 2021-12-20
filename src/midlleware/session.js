@@ -16,8 +16,7 @@ module.exports = async(req, res, next)=>{
         if(req.path === "/login"){
             next();
         }else{
-            //res.sendFile(config.app.staticDir + "/templates/login.html");
-            res.send("erro no midlleware de sessao")
+            res.redirect("/login")
         }
     }
 };
