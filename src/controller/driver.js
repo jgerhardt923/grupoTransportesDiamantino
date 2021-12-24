@@ -1,16 +1,15 @@
-const driverModel = require("../model/driver");
+const baseController = require("./base");
 
-module.exports = {
-    get:async(req, res)=>{
-        driverModel.findAll({where:req.post})
-        .then(drvr=>res.send({data:drvr}))
-        .catch(err=>res.send({message:err}))
-    },
-    post:async(req, res)=>{
-        driverModel.create(req.body)
-        .then(drvr=>{
-            res.send({newShippingCompany:drvr});
-        })
-        .catch(err=>res.send({message:err}))
-    }
-};
+const shippingCompanyModel = require("../model/shippingCompany");
+
+const controller = new baseController(__filename.split(/[\\/]/).pop())
+
+controller.list = async function(req){
+    this.mainModel.findAll({include:shippingCompanyModel})
+    .then(data=>{
+        return {data:data, succeess:true};
+    })
+    .catch(err=> {return {message:err, succeess:false}})
+}
+
+module.exports = controller;

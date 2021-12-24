@@ -1,16 +1,15 @@
-const truckModel = require("../model/truck")
+const baseController = require("./base");
 
-module.exports = {
-    get:async(req, res)=>{
-        truckModel.findAll({where:req.post})
-        .then(trck=>res.send({data:trck}))
-        .catch(err=>res.send({message:err}))
-    },
-    post:async(req, res)=>{
-        truckModel.create(req.body)
-        .then(trck=>{
-            res.send({newShippingCompany:trck});
-        })
-        .catch(err=>res.send({message:err}))
-    }
-};
+const shippingCompanyModel = require("../model/shippingCompany");
+
+const controller = new baseController(__filename.split(/[\\/]/).pop())
+
+controller.list = async function(req){
+    this.mainModel.findAll({include:shippingCompanyModel})
+    .then(data=>{
+        return {data:data, succeess:true};
+    })
+    .catch(err=> {return {message:err, succeess:false}})
+}
+
+module.exports = controller;
