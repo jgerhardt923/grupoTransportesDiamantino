@@ -1,5 +1,7 @@
 const express = require("express");
 
+const config = require("./config");
+
 //midllewares
 const cookieParser = require("cookie-parser");
 const sessionMidlleware = require("./midlleware/session");
@@ -11,6 +13,7 @@ const app = express()
 
 //midllewares
 app.use(
+    express.static(config.app.staticDir),
     cookieParser(),
     express.json(),
     express.urlencoded({ extended: true }), 
