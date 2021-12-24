@@ -4,9 +4,171 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>GTD</title>
 </head>
 <body>
-    Index
+
+    <div id="app">
+
+      <!-- Modals -->
+      <modal-form
+        title="Nova Transportadora"
+        id="transportadora-form-modal"
+        funcao="vm.submit('transportadoras', {
+          nome:'transportadora-nome-input',
+          cnpj:'transportadora-cnpj-input',
+          admin:'transportadora-admin-input'})">
+        <form>
+
+          <text-datalist-input label="Nome" id="transportadora-nome-input">
+          </text-datalist-input>
+
+          <text-datalist-input label="CNPJ" id="transportadora-cnpj-input">
+          </text-datalist-input>
+
+          <text-datalist-input label="admin" id="transportadora-admin-input">
+          </text-datalist-input>
+
+        </form>
+      </modal-form>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#home">GTD</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Cadastros
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                  <li><a class="dropdown-item" href="#" @click="showHide('container cadastros-main','#transportadora-container');">Transportadoras</a></li>
+                  <li><a class="dropdown-item" href="#" @click="showHide('container cadastros-main','#caminhoes-container');">Caminhões</a></li>
+                  <li><a class="dropdown-item" href="#" @click="showHide('container cadastros-main','#motoristas-container');">Motoristas</a></li>
+                  <li><a class="dropdown-item" href="#" @click="showHide('container cadastros-main','#locais-container');">Locais</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Viagens</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Lista</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Pagamentos</a>
+              </li>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container cadastros-main" id="transportadora-container" style="display: none;">
+
+        <div class="container m-4 d-flex" id="transportadora-options-container">
+            <button type="button" class="btn btn-primary m-4" data-bs-toggle="modal" data-bs-target="#transportadora-form-modal">
+              <i class="bi bi-plus"></i> Nova Transportadora
+            </button>
+            <button type="button" class="btn btn-primary m-4" @click="get_data('/shippingcompany','transportadoras')">
+              Recarregar
+            </button>
+        </div>
+
+        <custom-table 
+          :filteredmodel="filteredtransportadoras" 
+          :fullmodel="transportadoras" 
+          :tablefields="transportadorastablefields" 
+          tablename="transportadoras"
+          @filtrar="filterModel"
+          @ordenar="ordenadeModel">
+        </custom-table>
+        </div>
+
+
+      <div class="container cadastros-main" id="caminhoes-container" style="display: none;">
+
+        <div class="container m-4 d-flex" id="caminhoes-options-container">
+            <button type="button" class="btn btn-primary m-4" data-bs-toggle="modal" data-bs-target="#caminhoes-form-modal">
+              <i class="bi bi-plus"></i> Novo Caminhão
+            </button>
+            <button type="button" class="btn btn-primary m-4" @click="get_data('/caminhoes/','caminhoes')">
+              Recarregar
+            </button>
+        </div>
+        
+        <custom-table 
+          :filteredmodel="filteredcaminhoes" 
+          :fullmodel="caminhoes" 
+          :tablefields="caminhoestablefields" 
+          tablename="caminhoes"
+          @filtrar="filterModel"
+          @ordenar="ordenadeModel">
+        </custom-table>
+
+      </div>
+
+
+      <div class="container cadastros-main" id="motoristas-container" style="display: none;">
+
+        <div class="container m-4 d-flex" id="motoristas-options-container">
+            <button type="button" class="btn btn-primary m-4" data-bs-toggle="modal" data-bs-target="#motoristas-form-modal">
+              <i class="bi bi-plus"></i> Novo Motorista
+            </button>
+            <button type="button" class="btn btn-primary m-4" @click="get_data('/motoristas/','motoristas')">
+              Recarregar
+            </button>
+        </div>
+          
+        <custom-table 
+          :filteredmodel="filteredmotoristas" 
+          :fullmodel="motoristas" 
+          :tablefields="motoristastablefields" 
+          tablename="motoristas"
+          @filtrar="filterModel"
+          @ordenar="ordenadeModel">
+        </custom-table>
+
+      </div>
+
+
+      <div class="container cadastros-main" id="locais-container" style="display: none;">
+
+        <div class="container m-4 d-flex" id="locais-options-container">
+            <button type="button" class="btn btn-primary m-4" data-bs-toggle="modal" data-bs-target="#locais-form-modal">
+              <i class="bi bi-plus"></i> Novo Local
+            </button>
+            <button type="button" class="btn btn-primary m-4" @click="get_data('/locais/','locais')">
+              Recarregar
+            </button>
+        </div>
+          
+        <custom-table 
+          :filteredmodel="filteredlocais" 
+          :fullmodel="locais" 
+          :tablefields="locaistablefields" 
+          tablename="locais"
+          @filtrar="filterModel"
+          @ordenar="ordenadeModel">
+        </custom-table>
+
+      </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="js/vuecomponents.js"></script>
+    <script src="js/scripts.js"></script>
+    <script>
+
+    </script>
 </body>
 </html>

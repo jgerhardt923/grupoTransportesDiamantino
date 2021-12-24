@@ -1,0 +1,30 @@
+<div 
+    class="container" 
+    id="shippingCompanyContainer"
+    
+    >
+    <span id="message"></span>
+    <div class="create">
+        <form action="" id="createShippingCompanyContainer">
+            <input type="text" name="name">
+            <input type="text" name="cnpj">
+            <input type="text" name="adminName">
+            <input type="text" name="adminCpf">
+            <input type="text" name="adminPassword">
+        </form>
+        <script>
+            let container = document.querySelector("#shippingCompanyContainer")
+            
+            container.querySelector("#createShippingCompanyContainer")
+                .addEventListener("submit",value=>{
+                    $.ajax(value.getAttribute("data-path"),{
+                        method:value.querySelector("select").value,
+                        data:JSON.stringify($("#createShippingCompanyContainer").serializeArray()),
+                        success:data=>{
+                            value.querySelector("#message").innerHTML = data;
+                        }   
+                    })
+                })
+        </script>
+    </div>
+</div>
