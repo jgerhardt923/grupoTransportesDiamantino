@@ -4,25 +4,17 @@ const truckModel = require("../model/truck");
 const driverModel = require("../model/driver");
 
 module.exports = {
-    list: async function(req){
-        MAIN_MODEL.findAll({include:[{model:truckModel},{model:driverModel}]})
-        .then(data=>{
-            return {data:data, succeess:true};
-        })
-        .catch(err=> {return {message:err, succeess:false}})
-    },
-    one: async function(req){
-        MAIN_MODEL.findOne({where:{id:req.params.id}, include:[{model:truckModel},{model:driverModel}]})
-        .then(data=>{
-            return {data:data, succeess:true};
-        })
-        .catch(err=> {return {message:err, succeess:false}})
-    },
     get: async function(req, res){
         try{
-            res.send(this[req.params.mode](req));
+            if(req.params.mode === "list"){
+                let data = await MAIN_MODEL.findAll({include:[{model:truckModel},{model:driverModel}]});
+                await res.send({data:data, succeess:true})
+            }else{
+                let data = await MAIN_MODEL.findOne({where:{id:req.params.id}, include:[{model:truckModel},{model:driverModel}]});
+                await res.send({data:data, succeess:true})
+            }
         }catch (err){
-            res.send({message:err, succeess:false})
+            await res.send({message:err, succeess:false})
         }
     },
     post: async function(req, res){

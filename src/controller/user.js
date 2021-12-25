@@ -1,23 +1,17 @@
 const MAIN_MODEL = require("../model/"+__filename.split(/[\\/]/).pop())
 
 module.exports = {
-    list: async function(req){
-        if(req.user.superUser)
-        MAIN_MODEL.findAll()
-        .then(data=>{
-            return {data:data, succeess:true};
-        })
-        .catch(err=> {return {message:err, succeess:false}})
-        else return {message:"your not allowed to do this.", succeess:false}
-    },
-    one: async function(req, res){
-        return {data:req.user, succeess:true};
-    },
     get: async function(req, res){
+        if(! req.user.superUser) res.send({message:"your not allowed to do this.", succeess:false});
         try{
-            res.send(this[req.params.mode](req));
+            if(req.params.mode === "list"){
+                let data = await MAIN_MODEL.findAll();
+                await res.send({data:data, succeess:true})
+            }else{
+                await res.send({data:req.user, succeess:true})
+            }
         }catch (err){
-            res.send({message:err, succeess:false})
+            await res.send({message:err, succeess:false})
         }
     },
     post: async function(req, res){
