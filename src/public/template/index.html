@@ -102,6 +102,21 @@
                   </h5>
                   <form id="truckForm">
                     <div class="form-group">
+                      <label for="shippingCompanyInput">Shipping Company</label>
+                      <input 
+                        type="text" 
+                        class="form-control" 
+                        id="shippingCompanyInput" 
+                        name="shippingCompany" 
+                        list="shippingCompanyDataList"
+                        @focus="fetchListData('shippingcompany');">
+                      <datalist id="shippingCompanyDataList">
+                        <option  v-for="sc in shippingcompany._data" :value="sc.id">
+                          {{ sc.name }} - {{ sc.cnpj }}
+                        </option>
+                      </datalist>
+                    </div>
+                    <div class="form-group">
                       <label for="plateInput">Tractor Plate</label>
                       <input type="text" class="form-control" id="plateInput" name="plate">
                     </div>
