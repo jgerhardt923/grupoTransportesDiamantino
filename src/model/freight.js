@@ -1,10 +1,13 @@
 const {DataTypes} = require("sequelize");
 const sequelize = require("./dataBase/db");
 
+const localModel = require("./local");
+
 const freight = sequelize.define("freight", {
     price: DataTypes.FLOAT,
     product: DataTypes.CHAR,
-    fromat: DataTypes.CHAR,
+    lot: DataTypes.CHAR,
+    format: DataTypes.CHAR,
     start: DataTypes.DATEONLY,
     end: DataTypes.DATEONLY,
     charging: DataTypes.INTEGER,

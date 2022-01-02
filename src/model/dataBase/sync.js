@@ -6,7 +6,6 @@
     const travel = require("../travel");
     const shippingCompany = require("../shippingCompany");
     const session = require("../session");
-    const lot = require("../lot");
     const local = require("../local");
     const freight = require("../freight");
     const driver = require("../driver");
