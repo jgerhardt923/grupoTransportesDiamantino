@@ -5,9 +5,6 @@ module.exports = {
         try{
             if(req.params.mode === "list"){
                 let data = await MAIN_MODEL.findAll({
-                    where:{
-                        date:new Date().toLocaleString().substr(0, 10)
-                    },
                     include:{
                         all: true,
                         nested: true
