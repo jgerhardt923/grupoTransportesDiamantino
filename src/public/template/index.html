@@ -5,20 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <title>GTD</title>
 </head>
 <body>
     <section id="app">
-        <nav class="nav">
-            <a class="nav-link" href="#">Active</a>
-            <a class="nav-link" href="#">Link</a>
-            <a class="nav-link" href="#">Link</a>
-            <a class="nav-link" href="#">Disabled</a>
+        <nav class="nav sticky-top navbar-light bg-light">
+            <a class="nav-link" href="#shippingcompanyContainer" @click="showHide('container modules','#shippingcompanyContainer');">Shipping Companys</a>
+            <a class="nav-link" href="#truckContainer" @click="showHide('container modules','#truckContainer');">Trucks</a>
+            <a class="nav-link" href="#driverContainer" @click="showHide('container modules','#driverContainer');">Drivers</a>
+            <a class="nav-link" href="#localContainer" @click="showHide('container modules','#localContainer');">Locals</a>
+            <a class="nav-link" href="#associationContainer" @click="showHide('container modules','#associationContainer');">Associations</a>
+            <a class="nav-link" href="#freightContainer" @click="showHide('container modules','#freightContainer');">Freights</a>
+            <a class="nav-link" href="#travelContainer" @click="showHide('container modules','#travelContainer');">Travels</a>
         </nav>
 
         <div class="container" id="main">
-            <div class="container" id="shippingcompany">
+            <div class="container modules" id="shippingcompanyContainer" style="display: none;">
               <h4>
                 Shipping Company
               </h4>
@@ -68,23 +72,56 @@
                             <th scope="col">adminName</th>
                             <th scope="col">adminCpf</th>
                             <th scope="col">adminPassword</th>
+                            <th scope="col">Options</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr v-for="sc in shippingcompany._data" :data-object="JSON.stringify(sc)" :id="sc.id">
+                        <tbody id="shippingCompanyBody">
+                          <tr v-for="sc in shippingcompany._data" class="shippingCompanyRow" :data-object="JSON.stringify(sc)" :id="sc.id">
                             <th scope="row">{{ sc.id }}</th>
                             <td><a href="">{{ sc.name }}</a></td>
                             <td>{{ sc.cnpj }}</td>
                             <td>{{ sc.adminName }}</td>
                             <td>{{ sc.adminCpf }}</td>
                             <td>{{ sc.adminPassword }}</td>
+                            <td>
+                              <button class="btn btn-primary btn-sm" @click="toggle('#shippingcompanyUpdateForm'+sc.id, 200);"><i class="bi bi-pencil-fill"></i></button>
+                              <button class="btn btn-danger btn-sm" @click="deleteObject('shippingcompany',sc.id)"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                            <td>
+                              <form :id="'shippingcompanyUpdateForm'+sc.id" style="display: none;">
+                                <h5>
+                                  Update {{ sc.name }}
+                                </h5>
+                                <div class="form-group">
+                                  <label for="nameInput">Name</label>
+                                  <input type="text" class="form-control" id="nameInput" name="name" :value="sc.name">
+                                </div>
+                                <div class="form-group">
+                                  <label for="cnpjInput">CNPJ</label>
+                                  <input type="text" class="form-control" id="cnpjInput" name="cnpj" :value="sc.cnpj">
+                                </div>
+                                <div class="form-group">
+                                  <label for="adminNameInput">ADM Name</label>
+                                  <input type="text" class="form-control" id="adminNameInput" name="adminName" :value="sc.adminName">
+                                </div>
+                                <div class="form-group">
+                                  <label for="adminCpfInput">ADM CPF</label>
+                                  <input type="text" class="form-control" id="adminCpfInput" name="adminCpf" :value="sc.adminCpf">
+                                </div>
+                                <div class="form-group">
+                                  <label for="adminPasswordInput">ADM Password</label>
+                                  <input type="text" class="form-control" id="adminPasswordInput" name="adminPassword" :value="sc.adminPassword">
+                                </div>
+                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#shippingcompanyUpdateForm'+sc.id, sc.id);toggle('#shippingcompanyUpdateForm'+sc.id, 200);">Update</button>
+                              </form>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
                 </div>
             </div>
 
-            <div class="container" id="truck">
+            <div class="container modules" id="truckContainer" style="display: none;">
               <h4>
                 Truck
               </h4>
@@ -107,7 +144,7 @@
                         type="text" 
                         class="form-control" 
                         id="shippingCompanyInput" 
-                        name="shippingCompany" 
+                        name="shippingCompanyId" 
                         list="shippingCompanyDataList"
                         @focus="fetchListData('shippingcompany');">
                       <datalist id="shippingCompanyDataList">
@@ -163,6 +200,7 @@
                         <thead>
                           <tr>
                             <th scope="col">#</th>
+                            <!--<th scope="col">Shipping Company</th>-->
                             <th scope="col">Tractor Plate</th>
                             <th scope="col">Plate 2</th>
                             <th scope="col">Plate 3</th>
@@ -170,11 +208,13 @@
                             <th scope="col">Axes</th>
                             <th scope="col">Capacity</th>
                             <th scope="col">25 MT?</th>
+                            <th scope="col">Options</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr v-for="truck in truck._data" :data-object="JSON.stringify(truck)" :id="truck.id">
                             <th scope="row">{{ truck.id }}</th>
+                            <!--<td><a href="">{{ truck.shippingCompany }}</a></td>-->
                             <td><a href="">{{ truck.plate }}</a></td>
                             <td>{{ truck.plate1 }}</td>
                             <td>{{ truck.plate2 }}</td>
@@ -182,6 +222,817 @@
                             <td>{{ truck.axes }}</td>
                             <td>{{ truck.capacity }}</td>
                             <td>{{ truck.mt25 }}</td>
+                            <td>
+                              <button class="btn btn-primary btn-sm" @click="toggle('#truckUpdateForm'+truck.id, 200);"><i class="bi bi-pencil-fill"></i></button>
+                              <button class="btn btn-danger btn-sm" @click="deleteObject('truck',truck.id)"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                            <td>
+                              <form :id="'truckUpdateForm'+truck.id" style="display: none;">
+                                <h5>
+                                  Update {{ truck.plate }}
+                                </h5>
+                                <div class="form-group">
+                                  <label for="shippingCompanyInput">Shipping Company</label>
+                                  <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="shippingCompanyInput" 
+                                    name="shippingCompanyId" 
+                                    list="shippingCompanyDataList"
+                                    @focus="fetchListData('shippingcompany');"
+                                    :value="truck.shippingCompanyId">
+                                  <datalist id="shippingCompanyDataList">
+                                    <option  v-for="sc in shippingcompany._data" :value="sc.id">
+                                      {{ sc.name }} - {{ sc.cnpj }}
+                                    </option>
+                                  </datalist>
+                                </div>
+                                <div class="form-group">
+                                  <label for="plateInput">Tractor Plate</label>
+                                  <input type="text" class="form-control" id="plateInput" name="plate" :value="truck.plate">
+                                </div>
+                                <div class="form-group">
+                                  <label for="plate1Input">Plate 2</label>
+                                  <input type="text" class="form-control" id="plate1Input" name="plate1" :value="truck.plate1">
+                                </div>
+                                <div class="form-group">
+                                  <label for="plate2Input">Plate 3</label>
+                                  <input type="text" class="form-control" id="plate2Input" name="plate2" :value="truck.plate2">
+                                </div>
+                                <div class="form-group">
+                                  <label for="plate3Input">Plate 4</label>
+                                  <input type="text" class="form-control" id="plate3Input" name="plate3" :value="truck.plate3">
+                                </div>
+                                <div class="form-group">
+                                  <label for="axesInput">Axes</label>
+                                  <select class="form-control" id="axesInput" name="axes">
+                                    <option :value="truck.axes" selected>{{ truck.axes }}</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="9">9</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label for="capacityInput">Capacity</label>
+                                  <select class="form-control" id="capacityInput" name="capacity">
+                                    <option :value="truck.capacity" selected>{{ truck.capacity }} tn</option>
+                                    <option value="36">36 tn</option>
+                                    <option value="37">37 tn</option>
+                                    <option value="48">48 tn</option>
+                                    <option value="50">50 tn</option>
+                                  </select>
+                                </div>
+                                <div class="form-check">
+                                  <input v-if="truck.mt25" class="form-check-input" type="checkbox" id="mt25Input" name="mt25" checked>
+                                  <input v-else class="form-check-input" type="checkbox" id="mt25Input" name="mt25">
+                                  <label class="form-check-label" for="mt25Input">
+                                    25 MT?
+                                  </label>
+                                </div>
+                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#truckUpdateForm'+truck.id, truck.id);toggle('#truckUpdateForm'+truck.id, 200);">Update</button>
+                              </form>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+
+            <div class="container modules" id="driverContainer" style="display: none;">
+              <h4>
+                Driver
+              </h4>
+              <div class="nav">
+                <button class="btn btn-primary m-4" @click="fetchListData('driver');">
+                  Reload
+                </button>
+                <button type="button" class="btn btn-primary m-4" onclick="$('#driverFormContainer').toggle(200)">
+                  New
+                </button>
+              </div>
+                <div class="container m-4 form" id="driverFormContainer" style="display: none;">
+                  <h5>
+                    New Driver
+                  </h5>
+                  <form id="driverForm">
+                      <div class="form-group">
+                          <label for="shippingCompanyInput">Shipping Company</label>
+                          <input 
+                            type="text" 
+                            class="form-control" 
+                            id="shippingCompanyInput" 
+                            name="shippingCompanyId" 
+                            list="shippingCompanyDataList"
+                            @focus="fetchListData('shippingcompany');">
+                          <datalist id="shippingCompanyDataList">
+                            <option  v-for="sc in shippingcompany._data" :value="sc.id">
+                              {{ sc.name }} - {{ sc.cnpj }}
+                            </option>
+                          </datalist>
+                      </div>
+                      <div class="form-group">
+                          <label for="nameInput">Name</label>
+                          <input type="text" class="form-control" id="nameInput" name="name">
+                      </div>
+                      <div class="form-group">
+                          <label for="cpfInput">CPF</label>
+                          <input type="text" class="form-control" id="cpfInput" name="cpf">
+                      </div>
+                      <div class="form-group">
+                          <label for="phoneInput">Phone</label>
+                          <input type="text" class="form-control" id="phoneInput" name="phone">
+                      </div>
+                      <div class="form-group">
+                          <label for="emailInput">Email</label>
+                          <input type="email" class="form-control" id="emailInput" name="email">
+                      </div>
+                      <div class="form-group">
+                          <label for="passwordInput">Password</label>
+                          <input type="text" class="form-control" id="passwordInput" name="password">
+                      </div>
+                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#driverForm')">Save</button>
+                  </form>
+                </div>
+                <div class="container table">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">CPF</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="driver in driver._data" :data-object="JSON.stringify(driver)" :id="driver.id">
+                            <th scope="row">{{ driver.id }}</th>
+                            <td><a href="">{{ driver.name }}</a></td>
+                            <td>{{ driver.cpf }}</td>
+                            <td>{{ driver.phone }}</td>
+                            <td>{{ driver.email }}</td>
+                            <td>{{ driver.password }}</td>
+                            <td>
+                              <button class="btn btn-primary btn-sm" @click="toggle('#driverUpdateForm'+driver.id, 200);"><i class="bi bi-pencil-fill"></i></button>
+                              <button class="btn btn-danger btn-sm" @click="deleteObject('driver',driver.id)"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                            <td>
+                              <form :id="'driverUpdateForm'+driver.id" style="display: none;">
+                                  <h5>
+                                      Update {{ driver.name }}
+                                  </h5>
+                                  <div class="form-group">
+                                      <label for="shippingCompanyInput">Shipping Company</label>
+                                      <input 
+                                      type="text" 
+                                      class="form-control" 
+                                      id="shippingCompanyInput" 
+                                      name="shippingCompanyId" 
+                                      list="shippingCompanyDataList"
+                                      @focus="fetchListData('shippingcompany');"
+                                      :value="driver.shippingCompanyId">
+                                      <datalist id="shippingCompanyDataList">
+                                      <option  v-for="sc in shippingcompany._data" :value="sc.id">
+                                          {{ sc.name }} - {{ sc.cnpj }}
+                                      </option>
+                                      </datalist>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="nameInput">Name</label>
+                                      <input type="text" class="form-control" id="nameInput" name="name" :value="driver.name">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="cpfInput">CPF</label>
+                                      <input type="text" class="form-control" id="cpfInput" name="cpf" :value="driver.cpf">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="phoneInput">Phone</label>
+                                      <input type="text" class="form-control" id="phoneInput" name="phone" :value="driver.phone">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="emailInput">Email</label>
+                                      <input type="email" class="form-control" id="emailInput" name="email" :value="driver.email">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="passwordInput">Password</label>
+                                      <input type="text" class="form-control" id="passwordInput" name="password" :value="driver.password">
+                                  </div>
+                                  <button type="button" class="btn btn-primary mt-4" @click="updateData('#driverUpdateForm'+driver.id, driver.id);toggle('#driverUpdateForm'+driver.id, 200);">Update</button>
+                              </form>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+
+            <div class="container modules" id="localContainer" style="display: none;">
+              <h4>
+                Local
+              </h4>
+              <div class="nav">
+                <button class="btn btn-primary m-4" @click="fetchListData('local');">
+                  Reload
+                </button>
+                <button type="button" class="btn btn-primary m-4" onclick="$('#localFormContainer').toggle(200)">
+                  New
+                </button>
+              </div>
+                <div class="container m-4 form" id="localFormContainer" style="display: none;">
+                  <h5>
+                    New Local
+                  </h5>
+                  <form id="localForm">
+                      <div class="form-group">
+                        <label for="typeInput">Type</label>
+                        <select class="form-control" name="type" id="typeInput">
+                          <option value="warehouse">Warehouse</option>
+                          <option value="farm">Farm</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="nameInput">Name</label>
+                          <input type="text" class="form-control" id="nameInput" name="name">
+                      </div>
+                      <div class="form-group">
+                          <label for="cityInput">City</label>
+                          <input type="text" class="form-control" id="cityInput" name="city">
+                      </div>
+                      <div class="form-group">
+                        <label for="stateInput">State</label>
+                        <select class="form-control" name="state" id="stateInput">
+                          <option value="AC">Acre</option>
+                          <option value="AL">Alagoas</option>
+                          <option value="AP">Amapá</option>
+                          <option value="AM">Amazonas</option>
+                          <option value="BA">Bahia</option>
+                          <option value="CE">Ceará</option>
+                          <option value="DF">Distrito Federal</option>
+                          <option value="ES">Espírito Santo</option>
+                          <option value="GO">Goiás</option>
+                          <option value="MA">Maranhão</option>
+                          <option value="MT">Mato Grosso</option>
+                          <option value="MS">Mato Grosso do Sul</option>
+                          <option value="MG">Minas Gerais</option>
+                          <option value="PA">Pará</option>
+                          <option value="PB">Paraíba</option>
+                          <option value="PR">Paraná</option>
+                          <option value="PE">Pernambuco</option>
+                          <option value="PI">Piauí</option>
+                          <option value="RJ">Rio de Janeiro</option>
+                          <option value="RN">Rio Grande do Norte</option>
+                          <option value="RS">Rio Grande do Sul</option>
+                          <option value="RO">Rondônia</option>
+                          <option value="RR">Roraima</option>
+                          <option value="SC">Santa Catarina</option>
+                          <option value="SP">São Paulo</option>
+                          <option value="SE">Sergipe</option>
+                          <option value="TO">Tocantins</option>
+                          <option value="EX">Estrangeiro</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="phoneInput">Phone</label>
+                          <input type="text" class="form-control" id="phoneInput" name="phone">
+                      </div>
+                      <div class="form-group">
+                          <label for="emailInput">Email</label>
+                          <input type="email" class="form-control" id="emailInput" name="email">
+                      </div>
+                      <div class="form-group">
+                          <label for="addressInput">Address</label>
+                          <input type="text" class="form-control" id="addressInput" name="address">
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="balance25mtInput" name="balance25mt">
+                        <label class="form-check-label" for="balance25mtInput">
+                          Balance 25 Mt
+                        </label>
+                      </div>
+                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#localForm')">Save</button>
+                  </form>
+                </div>
+                <div class="container table">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">City</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">address</th>
+                            <th scope="col">Balance 25 Mt</th>
+                            <th scope="col">Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="local in local._data" :data-object="JSON.stringify(local)" :id="local.id">
+                            <th scope="row">{{ local.id }}</th>
+                            <td>{{ local.type }}</td>
+                            <td><a href="">{{ local.name }}</a></td>
+                            <td>{{ local.city }}</td>
+                            <td>{{ local.state }}</td>
+                            <td>{{ local.phone }}</td>
+                            <td>{{ local.email }}</td>
+                            <td>{{ local.address }}</td>
+                            <td>{{ local.balance25mt }}</td>
+                            <td>
+                              <button class="btn btn-primary btn-sm" @click="toggle('#localUpdateForm'+local.id, 200);"><i class="bi bi-pencil-fill"></i></button>
+                              <button class="btn btn-danger btn-sm" @click="deleteObject('local',local.id)"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                            <td>
+                              <form :id="'localUpdateForm'+local.id" style="display: none;">
+                                  <h5>
+                                      Update {{ local.name }} {{ local.type }}
+                                  </h5>
+                                  <div class="form-group">
+                                    <label for="typeInput">Type</label>
+                                    <select class="form-control" name="type" id="typeInput">
+                                      <option :value="local.type" selected>{{ local.type }}</option>
+                                      <option value="warehouse">Warehouse</option>
+                                      <option value="farm">Farm</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="nameInput">Name</label>
+                                      <input type="text" class="form-control" id="nameInput" name="name" :value="local.name">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="cityInput">City</label>
+                                      <input type="text" class="form-control" id="cityInput" name="city" :value="local.city">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="stateInput">State</label>
+                                    <select class="form-control" name="state" id="stateInput">
+                                      <option :value="local.state">{{ local.state }}</option>
+                                      <option value="AC">Acre</option>
+                                      <option value="AL">Alagoas</option>
+                                      <option value="AP">Amapá</option>
+                                      <option value="AM">Amazonas</option>
+                                      <option value="BA">Bahia</option>
+                                      <option value="CE">Ceará</option>
+                                      <option value="DF">Distrito Federal</option>
+                                      <option value="ES">Espírito Santo</option>
+                                      <option value="GO">Goiás</option>
+                                      <option value="MA">Maranhão</option>
+                                      <option value="MT">Mato Grosso</option>
+                                      <option value="MS">Mato Grosso do Sul</option>
+                                      <option value="MG">Minas Gerais</option>
+                                      <option value="PA">Pará</option>
+                                      <option value="PB">Paraíba</option>
+                                      <option value="PR">Paraná</option>
+                                      <option value="PE">Pernambuco</option>
+                                      <option value="PI">Piauí</option>
+                                      <option value="RJ">Rio de Janeiro</option>
+                                      <option value="RN">Rio Grande do Norte</option>
+                                      <option value="RS">Rio Grande do Sul</option>
+                                      <option value="RO">Rondônia</option>
+                                      <option value="RR">Roraima</option>
+                                      <option value="SC">Santa Catarina</option>
+                                      <option value="SP">São Paulo</option>
+                                      <option value="SE">Sergipe</option>
+                                      <option value="TO">Tocantins</option>
+                                      <option value="EX">Estrangeiro</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="phoneInput">Phone</label>
+                                      <input type="text" class="form-control" id="phoneInput" name="phone" :value="local.phone">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="emailInput">Email</label>
+                                      <input type="email" class="form-control" id="emailInput" name="email" :value="local.email">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="addressInput">Address</label>
+                                      <input type="text" class="form-control" id="addressInput" name="address" :value="local.address">
+                                  </div>
+                                  <div class="form-check">
+                                    <input v-if="local.balance25mt" class="form-check-input" type="checkbox" id="balance25mtInput" name="balance25mt" checked>
+                                    <template v-else>
+                                      <input class="form-check-input" type="checkbox" id="balance25mtInput" name="balance25mt">
+                                      <input type="hidden" value="0">
+                                    </template>
+                                    <label class="form-check-label" for="balance25mtInput">
+                                      Balance 25 Mt
+                                    </label>
+                                  </div>
+                                  <button type="button" class="btn btn-primary mt-4" @click="updateData('#localUpdateForm'+local.id, local.id);toggle('#localUpdateForm'+local.id, 200);">Update</button>
+                              </form>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+
+            <div class="container modules" id="associationContainer" style="display: none;">
+              <h4>
+                Association
+              </h4>
+              <div class="nav">
+                <button class="btn btn-primary m-4" @click="fetchListData('association');">
+                  Reload
+                </button>
+                <button type="button" class="btn btn-primary m-4" onclick="$('#associationFormContainer').toggle(200)">
+                  New
+                </button>
+              </div>
+                <div class="container m-4 form" id="associationFormContainer" style="display: none;">
+                  <h5>
+                    New Association
+                  </h5>
+                  <form id="associationForm">
+                      <div class="form-group">
+                        <label for="truckInput">Truck</label>
+                        <input type="text" class="form-control" list="truckDataList" @focus="fetchListData('truck');" id="truckInput" name="truckId">
+                        <datalist id="truckDataList">
+                          <option  v-for="truck in truck._data" :value="truck.id">
+                            {{ truck.plate }}
+                          </option>
+                        </datalist>
+                      </div>
+                      <div class="form-group">
+                        <label for="driverInput">Driver</label>
+                        <input type="text" class="form-control" list="driverDataList" @focus="fetchListData('driver');" id="driverInput" name="driverId">
+                        <datalist id="driverDataList">
+                          <option  v-for="driver in driver._data" :value="driver.id">
+                            {{ driver.name }} - {{ driver.cpf }}
+                          </option>
+                        </datalist>
+                      </div>
+                      <input type="hidden" name="active" value="1">
+                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#associationForm')">Save</button>
+                  </form>
+                </div>
+                <div class="container table">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Diver Name</th>
+                            <th scope="col">Driver CPF</th>
+                            <th scope="col">Truck Tractor</th>
+                            <th scope="col">Truck Capacity</th>
+                            <th scope="col">25 MT</th>
+                            <th scope="col">Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="association in association._data" :data-object="JSON.stringify(association)" :id="association.id">
+                            <th scope="row">{{ association.id }}</th>
+                            <td>{{ association.driver.name }}</td>
+                            <td>{{ association.driver.cpf }}</td>
+                            <td>{{ association.truck.plate }}</td>
+                            <td>{{ association.truck.capacity }}</td>
+                            <td>{{ association.truck.mt25 }}</td>
+                            <td>
+                              <button class="btn btn-primary btn-sm" @click="toggle('#associationUpdateForm'+association.id, 200);"><i class="bi bi-pencil-fill"></i></button>
+                              <button class="btn btn-danger btn-sm" @click="deleteObject('association',association.id)"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                            <td>
+                              <form :id="'associationUpdateForm'+association.id" style="display: none;">
+                                  <h5>
+                                      Update {{ association.truck.plate }} - {{ association.driver.name }}
+                                  </h5>
+                                  <div class="form-group">
+                                      <label for="truckInput">Truck</label>
+                                      <input type="text" class="form-control" list="truckDataList" @focus="fetchListData('truck');" id="truckInput" name="truckId" :value="association.truckId">
+                                      <datalist id="truckDataList">
+                                        <option  v-for="truck in truck._data" :value="truck.id">
+                                          {{ truck.plate }}
+                                        </option>
+                                      </datalist>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="driverInput">Driver</label>
+                                    <input type="text" class="form-control" list="driverDataList" @focus="fetchListData('driver');" id="driverInput" name="driverId" :value="association.driverId">
+                                    <datalist id="driverDataList">
+                                      <option  v-for="driver in driver._data" :value="driver.id">
+                                        {{ driver.name }} - {{ driver.cpf }}
+                                      </option>
+                                    </datalist>
+                                </div>
+                                <input type="hidden" name="active" value="1">
+                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#associationUpdateForm'+association.id, association.id);toggle('#associationUpdateForm'+association.id, 200);">Update</button>
+                              </form>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+
+            <div class="container modules" id="freightContainer" style="display: none;">
+              <h4>
+                Freight
+              </h4>
+              <div class="nav">
+                <button class="btn btn-primary m-4" @click="fetchListData('freight');">
+                  Reload
+                </button>
+                <button type="button" class="btn btn-primary m-4" onclick="$('#freightFormContainer').toggle(200)">
+                  New
+                </button>
+              </div>
+                <div class="container m-4 form" id="freightFormContainer" style="display: none;">
+                  <h5>
+                    New Freight
+                  </h5>
+                  <form id="freightForm">
+                      <div class="form-group">
+                        <label for="chargingInput">Charging</label>
+                        <input type="text" class="form-control" list="localChargingDataList" @focus="fetchListData('local');" id="chargingInput" name="charging">
+                        <datalist id="localChargingDataList">
+                          <option  v-for="local in local._data" :value="local.id">
+                            {{ local.name }} - {{ local.city }}
+                          </option>
+                        </datalist>
+                      </div>
+                      <div class="form-group">
+                        <label for="dischargingInput">Discharging</label>
+                        <input type="text" class="form-control" list="localDischargingDataList" @focus="fetchListData('local');" id="dischargingInput" name="discharging">
+                        <datalist id="localDischargingDataList">
+                          <option  v-for="local in local._data" :value="local.id">
+                            {{ local.name }} - {{ local.city }}
+                          </option>
+                        </datalist>
+                      </div>
+                      <div class="form-group">
+                        <label for="lotInput">Lot</label>
+                        <input type="text" class="form-control" id="lotInput" name="lot">
+                      </div>
+                      <div class="form-group">
+                        <label for="priceInput">Price</label>
+                        <input type="number" class="form-control" id="priceInput" name="price">
+                      </div>
+                      <div class="form-group">
+                        <label for="productInput">Product</label>
+                        <select name="product" id="productInput">
+                          <option value="soy">soy</option>
+                          <option value="corn">corn</option>
+                          <option value="coton">coton</option>
+                          <option value="fertilizer">fertilizer</option>
+                          <option value="calcareous">calcareous</option>
+                          <option value="cotonseed">cotonseed</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="formatInput">Format</label>
+                        <select name="format" id="formatInput">
+                          <option value="grain">grain</option>
+                          <option value="bag">bag</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="availableInput">Available</label>
+                        <select name="available" id="availableInput">
+                          <option value="1">true</option>
+                          <option value="0">false</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="startInput">Start</label>
+                        <input type="date" name="start" id="startInput">
+                      </div>
+                      <div class="form-group">
+                        <label for="endInput">End</label>
+                        <input type="date" name="end" id="endInput">
+                      </div>
+                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#freightForm')">Save</button>
+                  </form>
+                </div>
+                <div class="container table">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Charging</th>
+                            <th scope="col">Discharging</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Format</th>
+                            <th scope="col">Start</th>
+                            <th scope="col">End</th>
+                            <th scope="col">Lot</th>
+                            <th scope="col">Available</th>
+                            <th scope="col">Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="freight in freight._data" :data-object="JSON.stringify(freight)" :id="freight.id">
+                            <th scope="row">{{ freight.id }}</th>
+                            <td>{{ freight.chargingName }} {{ freight.chargingType }} - {{ freight.chargingCity }}</td>
+                            <td>{{ freight.dischargingName }} {{ freight.dischargingType }}- {{ freight.dischargingCity }}</td>
+                            <td>{{ freight.price }}</td>
+                            <td>{{ freight.product }}</td>
+                            <td>{{ freight.format }}</td>
+                            <td>{{ freight.start }}</td>
+                            <td>{{ freight.end }}</td>
+                            <td>{{ freight.lot }}</td>
+                            <td>{{ freight.available }}</td>
+                            <td>
+                              <button class="btn btn-primary btn-sm" @click="toggle('#freightUpdateForm'+freight.id, 200);"><i class="bi bi-pencil-fill"></i></button>
+                              <button class="btn btn-danger btn-sm" @click="deleteObject('freight',freight.id)"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                            <td>
+                              <form :id="'freightUpdateForm'+freight.id" style="display: none;">
+                                  <h5>
+                                      Update {{ freight.charging }} X {{ freight.discharging }}
+                                  </h5>
+                                  <div class="form-group">
+                                    <label for="chargingInput">Charging</label>
+                                    <input type="text" class="form-control" list="localChargingDataList" @focus="fetchListData('local');" id="chargingInput" name="charging" :value="freight.chargingId">
+                                    <datalist id="localChargingDataList">
+                                      <option  v-for="local in local._data" :value="local.id">
+                                        {{ local.name }} - {{ local.city }}
+                                      </option>
+                                    </datalist>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="dischargingInput">Discharging</label>
+                                    <input type="text" class="form-control" list="localDischargingDataList" @focus="fetchListData('local');" id="dischargingInput" name="discharging" :value="freight.dischargingId">
+                                    <datalist id="localDischargingDataList">
+                                      <option  v-for="local in local._data" :value="local.id">
+                                        {{ local.name }} - {{ local.city }}
+                                      </option>
+                                    </datalist>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="lotInput">Lot</label>
+                                    <input type="text" class="form-control" id="lotInput" name="lot" :value="freight.lot">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="priceInput">Price</label>
+                                    <input type="number" class="form-control" id="priceInput" name="price" :value="freight.price">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="productInput">Product</label>
+                                    <select name="product" id="productInput">
+                                      <option :value="freight.product">{{ freight.product }}</option>
+                                      <option value="soy">soy</option>
+                                      <option value="corn">corn</option>
+                                      <option value="coton">coton</option>
+                                      <option value="fertilizer">fertilizer</option>
+                                      <option value="calcareous">calcareous</option>
+                                      <option value="cotonseed">cotonseed</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="formatInput">Format</label>
+                                    <select name="format" id="formatInput">
+                                      <option :value="freight.format">{{ freight.format }}</option>
+                                      <option value="grain">grain</option>
+                                      <option value="bag">bag</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="availableInput">Available</label>
+                                    <select name="available" id="availableInput">
+                                      <option :value="freight.available">{{ freight.available }}</option>
+                                      <option value="1">true</option>
+                                      <option value="0">false</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="startInput">Start</label>
+                                    <input type="date" name="start" id="startInput" :value="freight.start">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="endInput">End</label>
+                                    <input type="date" name="end" id="endInput" :value="freight.end">
+                                  </div>
+                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#freightUpdateForm'+freight.id, freight.id);toggle('#freightUpdateForm'+freight.id, 200);">Update</button>
+                              </form>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+
+            <div class="container modules" id="travelContainer" style="display: none;">
+              <h4>
+                Travel
+              </h4>
+              <div class="nav">
+                <button class="btn btn-primary m-4" @click="fetchListData('travel');">
+                  Reload
+                </button>
+                <button type="button" class="btn btn-primary m-4" onclick="$('#travelFormContainer').toggle(200)">
+                  New
+                </button>
+              </div>
+                <div class="container m-4 form" id="travelFormContainer" style="display: none;">
+                  <h5>
+                    New travel
+                  </h5>
+                  <form id="travelForm">
+                      <div class="form-group">
+                        <label for="associationInput">Association</label>
+                        <input type="text" class="form-control" list="associationDataList" @focus="fetchListData('local');" id="associationInput" name="associationId">
+                        <datalist id="associationDataList">
+                          <option  v-for="ass in association._data" :value="ass.id">
+                            {{ ass.truck.plate }} - {{ ass.driver.name }}
+                          </option>
+                        </datalist>
+                      </div>
+                      <div class="form-group">
+                        <label for="freightInput">Freight</label>
+                        <input type="text" class="form-control" list="freightDataList" @focus="fetchListData('local');" id="freightInput" name="freightId">
+                        <datalist id="freightDataList">
+                          <option  v-for="freight in freight._data" :value="freight.id">
+                            {{ freight.chargingName }} {{ freight.chargingType }} - {{ freight.chargingCity }}
+                          </option>
+                        </datalist>
+                      </div>
+                      <div class="form-group">
+                        <label for="weightInput">Weight</label>
+                        <input type="number" class="form-control" id="weightInput" name="weight" value="50">
+                      </div>
+                      <div class="form-group">
+                          <label for="statusInput">Status</label>
+                          <input type="text" class="form-control" id="statusInput" name="status" value="created">
+                        </div>
+                      <div class="form-group">
+                        <label for="dateInput">Date</label>
+                        <input type="date" name="date" id="dateInput">
+                      </div>
+                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#travelForm')">Save</button>
+                  </form>
+                </div>
+                <div class="container table">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Freight Id</th>
+                            <th scope="col">Association Id</th>
+                            <th scope="col">Plate</th>
+                            <th scope="col">Driver Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="travel in travel._data" :data-object="JSON.stringify(travel)" :id="travel.id">
+                            <th scope="row">{{ travel.id }}</th>
+                            <td>{{ travel.freight.id }}</td>
+                            <td>{{ travel.association.id }}</td>
+                            <td>{{ travel.association.truck.plate }}</td>
+                            <td>{{ travel.association.driver.name }}</td>
+                            <td>{{ travel.date }}</td>
+                            <td>{{ travel.weight }}</td>
+                            <td>{{ travel.status }}</td>
+                            <td>
+                              <button class="btn btn-primary btn-sm" @click="toggle('#travelUpdateForm'+travel.id, 200);"><i class="bi bi-pencil-fill"></i></button>
+                              <button class="btn btn-danger btn-sm" @click="deleteObject('travel',travel.id)"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                            <td>
+                              <form :id="'travelUpdateForm'+travel.id" style="display: none;">
+                                  <h5>
+                                      Update {{ travel.association }} X {{ travel.freight }}
+                                  </h5>
+                                  <div class="form-group">
+                                      <label for="associationInput">Association</label>
+                                      <input type="text" class="form-control" list="associationDataList" @focus="fetchListData('local');" id="associationInput" name="associationId" :value="travel.associationId">
+                                      <datalist id="associationDataList">
+                                        <option  v-for="ass in association._data" :value="ass.id">
+                                          {{ ass.truck.plate }} - {{ ass.driver.name }}
+                                        </option>
+                                      </datalist>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="freightInput">Freight</label>
+                                      <input type="text" class="form-control" list="freightDataList" @focus="fetchListData('local');" id="freightInput" name="freightId" :value="travel.freightId">
+                                      <datalist id="freightDataList">
+                                        <option  v-for="freight in freight._data" :value="freight.id">
+                                          {{ freight.chargingName }} {{ freight.chargingType }} - {{ freight.chargingCity }}
+                                        </option>
+                                      </datalist>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="weightInput">Weight</label>
+                                      <input type="number" class="form-control" id="weightInput" name="weight" :value="travel.weight">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="statusInput">Status</label>
+                                        <input type="text" class="form-control" id="statusInput" name="status" :value="travel.status">
+                                      </div>
+                                    <div class="form-group">
+                                      <label for="dateInput">Date</label>
+                                      <input type="date" name="date" id="dateInput" :value="travel.date">
+                                    </div>
+                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#travelUpdateForm'+travel.id, travel.id);toggle('#travelUpdateForm'+travel.id, 200);">Update</button>
+                              </form>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -194,5 +1045,14 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="/static/js/functions.js"></script>
     <script src="/static/js/index.js"></script>
+    <script>
+      app.fetchListData('shippingcompany');
+      app.fetchListData('truck');
+      app.fetchListData('driver');
+      app.fetchListData('local');
+      app.fetchListData('association');
+      app.fetchListData('freight');
+      app.fetchListData('travel');
+    </script>
 </body>
 </html>
