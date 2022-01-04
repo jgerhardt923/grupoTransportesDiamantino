@@ -7,10 +7,10 @@ module.exports = {
     get: async function(req, res){
         try{
             if(req.params.mode === "list"){
-                let data = await MAIN_MODEL.findAll({include:[{model:truckModel},{model:driverModel}]});
+                let data = await MAIN_MODEL.findAll({include:{all:true, nested:true}});
                 await res.send({data:data, succeess:true})
             }else{
-                let data = await MAIN_MODEL.findOne({where:{id:req.params.id}, include:[{model:truckModel},{model:driverModel}]});
+                let data = await MAIN_MODEL.findOne({where:{id:req.params.id}, include:{all:true, nested:true}});
                 await res.send({data:data, succeess:true})
             }
         }catch (err){

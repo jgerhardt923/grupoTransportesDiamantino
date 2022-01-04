@@ -16,7 +16,7 @@ module.exports = {
         password:"adm123"
     },
     app:{
-        sessionDuration: 12*60,
+        sessionDuration: 60,
         staticDir: path.join(__dirname ,"/public/")
     },
     server:{

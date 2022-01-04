@@ -24,19 +24,28 @@ module.exports = {
         }
     },
     put: async function(req, res){
-        let obj = await MAIN_MODEL.findOne({where:{id:req.user.id}})
-        await obj.update(req.body)
-        .then(data=>{
-            res.send({data:data});
-        })
-        .catch(err=>res.send({message:err, succeess:false}))
+        if(req.user.superUser){
+            let obj = await MAIN_MODEL.findOne({where:{id:req.params.id}})
+            await obj.update(req.body)
+            .then(data=>{
+                res.send({data:data});
+            })
+            .catch(err=>res.send({message:err, succeess:false}))
+        }else{
+            res.send({message:"your not allowed to do this.", success:true})
+        }
     },
     delete: async function(req, res){
-        let obj = await MAIN_MODEL.findOne({where:{id:req.user.id}})
-        await obj.destroy()
-        .then(()=>{
-            res.send({succeess:true});
-        })
-        .catch(err=>res.send({message:err, succeess:false}))
+        if(req.user.superUser){
+            let obj = await MAIN_MODEL.findOne({where:{id:req.params.id}})
+            await obj.destroy()
+            .then(()=>{
+                res.send({succeess:true});
+            })
+            .catch(err=>res.send({message:err, succeess:false}))
+        }else{
+            res.send({message:"your not allowed to do this.", success:true})
+        }
+        
     }
 }

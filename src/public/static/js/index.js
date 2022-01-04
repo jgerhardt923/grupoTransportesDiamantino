@@ -47,7 +47,13 @@ var app = new Vue(
                 _data:[],
                 $data:[],
                 set data(value){
-                    data = value;
+                    data = value;data.forEach(val=>{
+                        val.shippingCompanyName = val.truck.shippingCompany.name;
+                        val.shippingCompanyCnpj = val.truck.shippingCompany.cnpj;
+                        val.truckPlate = val.truck.plate;
+                        val.driverName = val.driver.name;
+                        val.driverCpf = val.driver.cpf;
+                    })
                     this._data = data;
                     this.$data = data;
                 }
@@ -64,6 +70,31 @@ var app = new Vue(
             }
             ,
             travel:{
+                data:[],
+                _data:[],
+                $data:[],
+                set data(value){
+                    data = value;
+                    data.forEach(val=>{
+                        val.shippingCompanyName = val.association.truck.shippingCompany.name;
+                        val.shippingCompanyCnpj = val.association.truck.shippingCompany.cnpj;
+                        val.truckPlate = val.association.truck.plate;
+                        val.driverName = val.association.driver.name;
+                        val.driverCpf = val.association.driver.cpf;
+                    })
+                    this._data = data;
+                    this.$data = data;
+                }
+            },
+            currentUser:{
+                data:[],
+                $:[],
+                set data(value){
+                    data = value;
+                    this.$ = data;
+                }
+            },
+            user:{
                 data:[],
                 _data:[],
                 $data:[],
@@ -142,6 +173,29 @@ var app = new Vue(
                     div.style.display = "none";
                 }
                 document.querySelector(show).style.display = "block";
+            },
+            filterModel: function(model, input){
+                //console.log("ativou");
+                let chave = String($(input).val()).toUpperCase();
+                if (chave === ""){
+                    this[model]._data = this[model].$data;
+                }else{
+                    this[model]._data = this[model].$data.filter((obj) => {
+                        for (let item in obj){
+                            if (String(obj[item]).toUpperCase().includes(chave)) return true;
+                        }
+                        return false;
+                    });
+                }
+            },
+            getCurrentUser: function(){
+                $.ajax({
+                    url: "http://localhost:5000/user/current/0",
+                    method:"GET",
+                    success:data=>{
+                        this.currentUser.data = data.data;
+                    }
+                })
             }
         }
     }

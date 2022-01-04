@@ -19,6 +19,7 @@
             <a class="nav-link" href="#associationContainer" @click="showHide('container modules','#associationContainer');">Associations</a>
             <a class="nav-link" href="#freightContainer" @click="showHide('container modules','#freightContainer');">Freights</a>
             <a class="nav-link" href="#travelContainer" @click="showHide('container modules','#travelContainer');">Travels</a>
+            <a v-if="currentUser.$.superUser" class="nav-link" href="#travelContainer" @click="showHide('container modules','#userContainer');">Users</a>
         </nav>
 
         <div class="container" id="main">
@@ -63,6 +64,10 @@
                   </form>
                 </div>
                 <div class="container table">
+                    <div class="form-group m-4">
+                      <label for="shippingCompanyFilterInput">Search</label>
+                      <input class="form-control w-25" type="text" id="shippingCompanyFilterInput" @keyup="filterModel('shippingcompany', '#shippingCompanyFilterInput')">
+                    </div>
                     <table class="table">
                         <thead>
                           <tr>
@@ -195,11 +200,15 @@
                   </form>
                 </div>
                 <div class="container table">
+                    <div class="form-group m-4">
+                      <label for="truckFilterInput">Search</label>
+                      <input class="form-control w-25" type="text" id="truckFilterInput" @keyup="filterModel('truck', '#truckFilterInput')">
+                    </div>
                     <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <!--<th scope="col">Shipping Company</th>-->
+                            <th scope="col">Shipping Company</th>
                             <th scope="col">Tractor Plate</th>
                             <th scope="col">Plate 2</th>
                             <th scope="col">Plate 3</th>
@@ -213,8 +222,8 @@
                         <tbody>
                           <tr v-for="truck in truck._data" :data-object="JSON.stringify(truck)" :id="truck.id">
                             <th scope="row">{{ truck.id }}</th>
-                            <!--<td><a href="">{{ truck.shippingCompany }}</a></td>-->
-                            <td><a href="">{{ truck.plate }}</a></td>
+                            <td>{{ truck.shippingCompany.name }}</td>
+                            <td>{{ truck.plate }}</td>
                             <td>{{ truck.plate1 }}</td>
                             <td>{{ truck.plate2 }}</td>
                             <td>{{ truck.plate2 }}</td>
@@ -352,9 +361,14 @@
                 </div>
                 <div class="container table">
                     <table class="table">
+                        <div class="form-group m-4">
+                          <label for="driverFilterInput">Search</label>
+                          <input class="form-control w-25" type="text" id="driverFilterInput" @keyup="filterModel('driver', '#driverFilterInput')">
+                        </div>
                         <thead>
                           <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Shipping Company</th>
                             <th scope="col">Name</th>
                             <th scope="col">CPF</th>
                             <th scope="col">Phone</th>
@@ -366,7 +380,8 @@
                         <tbody>
                           <tr v-for="driver in driver._data" :data-object="JSON.stringify(driver)" :id="driver.id">
                             <th scope="row">{{ driver.id }}</th>
-                            <td><a href="">{{ driver.name }}</a></td>
+                            <td>{{ driver.shippingCompany.name }}</td>
+                            <td>{{ driver.name }}</td>
                             <td>{{ driver.cpf }}</td>
                             <td>{{ driver.phone }}</td>
                             <td>{{ driver.email }}</td>
@@ -511,6 +526,10 @@
                   </form>
                 </div>
                 <div class="container table">
+                    <div class="form-group m-4">
+                      <label for="localFilterInput">Search</label>
+                      <input class="form-control w-25" type="text" id="localFilterInput" @keyup="filterModel('local', '#localFilterInput')">
+                    </div>
                     <table class="table">
                         <thead>
                           <tr>
@@ -667,6 +686,10 @@
                   </form>
                 </div>
                 <div class="container table">
+                    <div class="form-group m-4">
+                      <label for="associationFilterInput">Search</label>
+                      <input class="form-control w-25" type="text" id="associationFilterInput" @keyup="filterModel('association', '#associationFilterInput')">
+                    </div>
                     <table class="table">
                         <thead>
                           <tr>
@@ -676,6 +699,8 @@
                             <th scope="col">Truck Tractor</th>
                             <th scope="col">Truck Capacity</th>
                             <th scope="col">25 MT</th>
+                            <th scope="col">Active</th>
+                            <th scope="col">Vector Admin Login</th>
                             <th scope="col">Options</th>
                           </tr>
                         </thead>
@@ -687,6 +712,8 @@
                             <td>{{ association.truck.plate }}</td>
                             <td>{{ association.truck.capacity }}</td>
                             <td>{{ association.truck.mt25 }}</td>
+                            <td>{{ association.active }}</td>
+                            <td><b>{{ association.truck.shippingCompany.adminCpf }}</b> on <b>{{ association.truck.shippingCompany.adminPassword }}</b></td>
                             <td>
                               <button class="btn btn-primary btn-sm" @click="toggle('#associationUpdateForm'+association.id, 200);"><i class="bi bi-pencil-fill"></i></button>
                               <button class="btn btn-danger btn-sm" @click="deleteObject('association',association.id)"><i class="bi bi-trash-fill"></i></button>
@@ -804,6 +831,10 @@
                   </form>
                 </div>
                 <div class="container table">
+                    <div class="form-group m-4">
+                      <label for="freightFilterInput">Search</label>
+                      <input class="form-control w-25" type="text" id="freightFilterInput" @keyup="filterModel('freight', '#freightFilterInput')">
+                    </div>
                     <table class="table">
                         <thead>
                           <tr>
@@ -839,7 +870,7 @@
                             <td>
                               <form :id="'freightUpdateForm'+freight.id" style="display: none;">
                                   <h5>
-                                      Update {{ freight.charging }} X {{ freight.discharging }}
+                                      Update {{ freight.chargingName }} X {{ freight.dischargingName }}
                                   </h5>
                                   <div class="form-group">
                                     <label for="chargingInput">Charging</label>
@@ -963,6 +994,10 @@
                   </form>
                 </div>
                 <div class="container table">
+                    <div class="form-group m-4">
+                      <label for="travelFilterInput">Search</label>
+                      <input class="form-control w-25" type="text" id="travelFilterInput" @keyup="filterModel('travel', '#travelFilterInput')">
+                    </div>
                     <table class="table">
                         <thead>
                           <tr>
@@ -980,7 +1015,7 @@
                         <tbody>
                           <tr v-for="travel in travel._data" :data-object="JSON.stringify(travel)" :id="travel.id">
                             <th scope="row">{{ travel.id }}</th>
-                            <td>{{ travel.freight.id }}</td>
+                            <td>{{ travel.freightId }}</td>
                             <td>{{ travel.association.id }}</td>
                             <td>{{ travel.association.truck.plate }}</td>
                             <td>{{ travel.association.driver.name }}</td>
@@ -1034,6 +1069,94 @@
                       </table>
                 </div>
             </div>
+
+            <div class="container modules" id="userContainer" style="display: none;" v-if="currentUser.$.superUser">
+              <h4>
+                User
+              </h4>
+              <div class="nav">
+                <button class="btn btn-primary m-4" @click="fetchListData('user');">
+                  Reload
+                </button>
+                <button type="button" class="btn btn-primary m-4" onclick="$('#userFormContainer').toggle(200)">
+                  New
+                </button>
+              </div>
+                <div class="container m-4 form" id="userFormContainer" style="display: none;">
+                  <h5>
+                    New user
+                  </h5>
+                  <form id="userForm">
+                      <div class="form-group">
+                        <label for="nameInput">Name</label>
+                        <input type="text" class="form-control" id="nameInput" name="name">
+                      </div>
+                      <div class="form-group">
+                        <label for="passwordInput">Password</label>
+                        <input type="text" class="form-control" id="passwordInput" name="password">
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="superUserInput" name="superUser">
+                          <label class="form-check-label" for="superUserInput">
+                            SuperUser?
+                          </label>
+                      </div>
+                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#userForm')">Save</button>
+                  </form>
+                </div>
+                <div class="container table">
+                    <div class="form-group m-4">
+                      <label for="userFilterInput">Search</label>
+                      <input class="form-control w-25" type="text" id="userFilterInput" @keyup="filterModel('user', '#userFilterInput')">
+                    </div>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">SuperUser</th>
+                            <th scope="col">Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="user in user._data" :data-object="JSON.stringify(user)" :id="user.id">
+                            <th scope="row">{{ user.id }}</th>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.password }}</td>
+                            <td>{{ user.superUser }}</td>
+                            <td>
+                              <button class="btn btn-primary btn-sm" @click="toggle('#userUpdateForm'+user.id, 200);"><i class="bi bi-pencil-fill"></i></button>
+                              <button class="btn btn-danger btn-sm" @click="deleteObject('user',user.id)"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                            <td>
+                              <form :id="'userUpdateForm'+user.id" style="display: none;">
+                                  <h5>
+                                      Update {{ user.name }}
+                                  </h5>
+                                  <div class="form-group">
+                                      <label for="nameInput">Name</label>
+                                      <input type="text" class="form-control" id="nameInput" name="name" :value="user.name">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="passwordInput">Password</label>
+                                      <input type="text" class="form-control" id="passwordInput" name="password" :value="user.password">
+                                    </div>
+                                    <div class="form-check">
+                                        <input v-if="user.superUser" class="form-check-input" type="checkbox" id="superUserInput" name="superUser" checked>
+                                        <input v-else class="form-check-input" type="checkbox" id="superUserInput" name="superUser">
+                                        <label class="form-check-label" for="superUserInput">
+                                          SuperUser?
+                                        </label>
+                                    </div>
+                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#userUpdateForm'+user.id, user.id);toggle('#userUpdateForm'+user.id, 200);">Update</button>
+                              </form>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
         </div>
 
     </section>
@@ -1049,6 +1172,7 @@
       app.fetchListData('association');
       app.fetchListData('freight');
       app.fetchListData('travel');
+      app.getCurrentUser();
     </script>
 </body>
 </html>
