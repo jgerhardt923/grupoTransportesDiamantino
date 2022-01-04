@@ -12,15 +12,15 @@ module.exports = {
         port: process.env.DB_PORT || 5432
     },
     superUser:{
-        name:"adm",
-        password:"adm123"
+        name: process.env.APP_ADMIN_USERNAME,
+        password: process.env.APP_ADMIN_PASSWORD
     },
     app:{
         sessionDuration: 60,
         staticDir: path.join(__dirname ,"/public/")
     },
     server:{
-        host:"localhost",
-        port:5000
+        host: process.env.APP_HOST || "localhost",
+        port: process.env.APP_PORT || 5000
     }
 }

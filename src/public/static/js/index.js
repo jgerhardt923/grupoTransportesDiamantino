@@ -107,7 +107,7 @@ var app = new Vue(
         },
         methods:{
             fetchListData: function(model){
-                let url = "http://localhost:5000/"+model+"/list/0";
+                let url = "/"+model+"/list/0";
                 $.ajax({
                     url: url,
                     method:"GET",
@@ -119,7 +119,7 @@ var app = new Vue(
             submitData:function(form){
                 let $form = $(form);
                 let model = form.replace("Form","").replace("#","");
-                let url = "http://localhost:5000/"+model+"/add/0";
+                let url = "/"+model+"/add/0";
                 $.ajax({
                     url: url,
                     method:"POST",
@@ -132,7 +132,7 @@ var app = new Vue(
             updateData:function(form, id){
                 let $form = $(form);
                 let model = form.replace("UpdateForm","").replace(/[0-9]/g,"").replace("#","");
-                let url = "http://localhost:5000/"+model+"/update/"+id;
+                let url = "/"+model+"/update/"+id;
                 $.ajax({
                     url: url,
                     method:"PUT",
@@ -145,7 +145,7 @@ var app = new Vue(
             deleteObject:function(model, id){
                 let confirm = window.confirm("do you realy want to delete it?");
                 if (confirm == true){
-                    let url = "http://localhost:5000/"+model+"/del/"+id;
+                    let url = "/"+model+"/del/"+id;
                     $.ajax({
                         url: url,
                         method:"DELETE",
@@ -190,7 +190,7 @@ var app = new Vue(
             },
             getCurrentUser: function(){
                 $.ajax({
-                    url: "http://localhost:5000/user/current/0",
+                    url: "/user/current/0",
                     method:"GET",
                     success:data=>{
                         this.currentUser.data = data.data;
