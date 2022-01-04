@@ -96,7 +96,7 @@ var app = new Vue(
                     success:data=>{
                         this[model].data = data.data;
                     }
-                }).done(data=>{this.fetchListData(model)})
+                }).done(data=>{alert("Created!");this.fetchListData(model)})
             },
             updateData:function(form, id){
                 let $form = $(form);
@@ -109,7 +109,7 @@ var app = new Vue(
                     success:data=>{
                         this[model].data = data.data;
                     }
-                }).done(data=>{this.fetchListData(model)})
+                }).done(data=>{alert("Updated!");this.fetchListData(model)})
             },
             deleteObject:function(model, id){
                 let confirm = window.confirm("do you realy want to delete it?");

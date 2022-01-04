@@ -145,10 +145,9 @@
                         class="form-control" 
                         id="shippingCompanyInput" 
                         name="shippingCompanyId" 
-                        list="shippingCompanyDataList"
-                        @focus="fetchListData('shippingcompany');">
+                        list="shippingCompanyDataList">
                       <datalist id="shippingCompanyDataList">
-                        <option  v-for="sc in shippingcompany._data" :value="sc.id">
+                        <option  v-for="sc in shippingcompany.$data" :value="sc.id">
                           {{ sc.name }} - {{ sc.cnpj }}
                         </option>
                       </datalist>
@@ -239,10 +238,9 @@
                                     id="shippingCompanyInput" 
                                     name="shippingCompanyId" 
                                     list="shippingCompanyDataList"
-                                    @focus="fetchListData('shippingcompany');"
                                     :value="truck.shippingCompanyId">
                                   <datalist id="shippingCompanyDataList">
-                                    <option  v-for="sc in shippingcompany._data" :value="sc.id">
+                                    <option  v-for="sc in shippingcompany.$data" :value="sc.id">
                                       {{ sc.name }} - {{ sc.cnpj }}
                                     </option>
                                   </datalist>
@@ -322,10 +320,9 @@
                             class="form-control" 
                             id="shippingCompanyInput" 
                             name="shippingCompanyId" 
-                            list="shippingCompanyDataList"
-                            @focus="fetchListData('shippingcompany');">
+                            list="shippingCompanyDataList">
                           <datalist id="shippingCompanyDataList">
-                            <option  v-for="sc in shippingcompany._data" :value="sc.id">
+                            <option  v-for="sc in shippingcompany.$data" :value="sc.id">
                               {{ sc.name }} - {{ sc.cnpj }}
                             </option>
                           </datalist>
@@ -391,10 +388,9 @@
                                       id="shippingCompanyInput" 
                                       name="shippingCompanyId" 
                                       list="shippingCompanyDataList"
-                                      @focus="fetchListData('shippingcompany');"
                                       :value="driver.shippingCompanyId">
                                       <datalist id="shippingCompanyDataList">
-                                      <option  v-for="sc in shippingcompany._data" :value="sc.id">
+                                      <option  v-for="sc in shippingcompany.$data" :value="sc.id">
                                           {{ sc.name }} - {{ sc.cnpj }}
                                       </option>
                                       </datalist>
@@ -650,18 +646,18 @@
                   <form id="associationForm">
                       <div class="form-group">
                         <label for="truckInput">Truck</label>
-                        <input type="text" class="form-control" list="truckDataList" @focus="fetchListData('truck');" id="truckInput" name="truckId">
+                        <input type="text" class="form-control" list="truckDataList" id="truckInput" name="truckId">
                         <datalist id="truckDataList">
-                          <option  v-for="truck in truck._data" :value="truck.id">
+                          <option  v-for="truck in truck.$data" :value="truck.id">
                             {{ truck.plate }}
                           </option>
                         </datalist>
                       </div>
                       <div class="form-group">
                         <label for="driverInput">Driver</label>
-                        <input type="text" class="form-control" list="driverDataList" @focus="fetchListData('driver');" id="driverInput" name="driverId">
+                        <input type="text" class="form-control" list="driverDataList" id="driverInput" name="driverId">
                         <datalist id="driverDataList">
-                          <option  v-for="driver in driver._data" :value="driver.id">
+                          <option  v-for="driver in driver.$data" :value="driver.id">
                             {{ driver.name }} - {{ driver.cpf }}
                           </option>
                         </datalist>
@@ -702,18 +698,18 @@
                                   </h5>
                                   <div class="form-group">
                                       <label for="truckInput">Truck</label>
-                                      <input type="text" class="form-control" list="truckDataList" @focus="fetchListData('truck');" id="truckInput" name="truckId" :value="association.truckId">
+                                      <input type="text" class="form-control" list="truckDataList" id="truckInput" name="truckId" :value="association.truckId">
                                       <datalist id="truckDataList">
-                                        <option  v-for="truck in truck._data" :value="truck.id">
+                                        <option  v-for="truck in truck.$data" :value="truck.id">
                                           {{ truck.plate }}
                                         </option>
                                       </datalist>
                                   </div>
                                   <div class="form-group">
                                     <label for="driverInput">Driver</label>
-                                    <input type="text" class="form-control" list="driverDataList" @focus="fetchListData('driver');" id="driverInput" name="driverId" :value="association.driverId">
+                                    <input type="text" class="form-control" list="driverDataList" id="driverInput" name="driverId" :value="association.driverId">
                                     <datalist id="driverDataList">
-                                      <option  v-for="driver in driver._data" :value="driver.id">
+                                      <option  v-for="driver in driver.$data" :value="driver.id">
                                         {{ driver.name }} - {{ driver.cpf }}
                                       </option>
                                     </datalist>
@@ -747,18 +743,18 @@
                   <form id="freightForm">
                       <div class="form-group">
                         <label for="chargingInput">Charging</label>
-                        <input type="text" class="form-control" list="localChargingDataList" @focus="fetchListData('local');" id="chargingInput" name="charging">
+                        <input type="text" class="form-control" list="localChargingDataList" id="chargingInput" name="charging">
                         <datalist id="localChargingDataList">
-                          <option  v-for="local in local._data" :value="local.id">
+                          <option  v-for="local in local.$data" :value="local.id">
                             {{ local.name }} - {{ local.city }}
                           </option>
                         </datalist>
                       </div>
                       <div class="form-group">
                         <label for="dischargingInput">Discharging</label>
-                        <input type="text" class="form-control" list="localDischargingDataList" @focus="fetchListData('local');" id="dischargingInput" name="discharging">
+                        <input type="text" class="form-control" list="localDischargingDataList" id="dischargingInput" name="discharging">
                         <datalist id="localDischargingDataList">
-                          <option  v-for="local in local._data" :value="local.id">
+                          <option  v-for="local in local.$data" :value="local.id">
                             {{ local.name }} - {{ local.city }}
                           </option>
                         </datalist>
@@ -847,18 +843,18 @@
                                   </h5>
                                   <div class="form-group">
                                     <label for="chargingInput">Charging</label>
-                                    <input type="text" class="form-control" list="localChargingDataList" @focus="fetchListData('local');" id="chargingInput" name="charging" :value="freight.chargingId">
+                                    <input type="text" class="form-control" list="localChargingDataList" id="chargingInput" name="charging" :value="freight.chargingId">
                                     <datalist id="localChargingDataList">
-                                      <option  v-for="local in local._data" :value="local.id">
+                                      <option  v-for="local in local.$data" :value="local.id">
                                         {{ local.name }} - {{ local.city }}
                                       </option>
                                     </datalist>
                                   </div>
                                   <div class="form-group">
                                     <label for="dischargingInput">Discharging</label>
-                                    <input type="text" class="form-control" list="localDischargingDataList" @focus="fetchListData('local');" id="dischargingInput" name="discharging" :value="freight.dischargingId">
+                                    <input type="text" class="form-control" list="localDischargingDataList" id="dischargingInput" name="discharging" :value="freight.dischargingId">
                                     <datalist id="localDischargingDataList">
-                                      <option  v-for="local in local._data" :value="local.id">
+                                      <option  v-for="local in local.$data" :value="local.id">
                                         {{ local.name }} - {{ local.city }}
                                       </option>
                                     </datalist>
@@ -935,18 +931,18 @@
                   <form id="travelForm">
                       <div class="form-group">
                         <label for="associationInput">Association</label>
-                        <input type="text" class="form-control" list="associationDataList" @focus="fetchListData('local');" id="associationInput" name="associationId">
+                        <input type="text" class="form-control" list="associationDataList" id="associationInput" name="associationId">
                         <datalist id="associationDataList">
-                          <option  v-for="ass in association._data" :value="ass.id">
+                          <option  v-for="ass in association.$data" :value="ass.id">
                             {{ ass.truck.plate }} - {{ ass.driver.name }}
                           </option>
                         </datalist>
                       </div>
                       <div class="form-group">
                         <label for="freightInput">Freight</label>
-                        <input type="text" class="form-control" list="freightDataList" @focus="fetchListData('local');" id="freightInput" name="freightId">
+                        <input type="text" class="form-control" list="freightDataList" id="freightInput" name="freightId">
                         <datalist id="freightDataList">
-                          <option  v-for="freight in freight._data" :value="freight.id">
+                          <option  v-for="freight in freight.$data" :value="freight.id">
                             {{ freight.chargingName }} {{ freight.chargingType }} - {{ freight.chargingCity }}
                           </option>
                         </datalist>
@@ -1002,18 +998,18 @@
                                   </h5>
                                   <div class="form-group">
                                       <label for="associationInput">Association</label>
-                                      <input type="text" class="form-control" list="associationDataList" @focus="fetchListData('local');" id="associationInput" name="associationId" :value="travel.associationId">
+                                      <input type="text" class="form-control" list="associationDataList" id="associationInput" name="associationId" :value="travel.associationId">
                                       <datalist id="associationDataList">
-                                        <option  v-for="ass in association._data" :value="ass.id">
+                                        <option  v-for="ass in association.$data" :value="ass.id">
                                           {{ ass.truck.plate }} - {{ ass.driver.name }}
                                         </option>
                                       </datalist>
                                     </div>
                                     <div class="form-group">
                                       <label for="freightInput">Freight</label>
-                                      <input type="text" class="form-control" list="freightDataList" @focus="fetchListData('local');" id="freightInput" name="freightId" :value="travel.freightId">
+                                      <input type="text" class="form-control" list="freightDataList" id="freightInput" name="freightId" :value="travel.freightId">
                                       <datalist id="freightDataList">
-                                        <option  v-for="freight in freight._data" :value="freight.id">
+                                        <option  v-for="freight in freight.$data" :value="freight.id">
                                           {{ freight.chargingName }} {{ freight.chargingType }} - {{ freight.chargingCity }}
                                         </option>
                                       </datalist>
