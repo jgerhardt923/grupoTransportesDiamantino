@@ -6,10 +6,11 @@ const freightController = require("./controller/freight");
 const indexController = require("./controller/index");
 const localController = require("./controller/local");
 const loginController = require("./controller/login");
+const paymentController = require("./controller/payment");
 const shippingCompanyController = require("./controller/shippingCompany");
 const travelController = require("./controller/travel");
 const truckController = require("./controller/truck");
-const userController = require("./controller/user")
+const userController = require("./controller/user");
 
 const router = express.Router();
 
@@ -43,6 +44,11 @@ router.route("/local/:mode/:id")
 router.route("/login")
     .get(loginController.get)
     .post(loginController.post)
+
+router.route("/payment/:mode/:id")
+    .get(paymentController.get)
+    .put(paymentController.put)
+    .delete(paymentController.delete)
 
 router.route("/shippingcompany/:mode/:id")
     .get(shippingCompanyController.get)
