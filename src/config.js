@@ -20,7 +20,7 @@ module.exports = {
         staticDir: path.join(__dirname ,"/public/")
     },
     server:{
-        host: process.env.APP_HOST || "localhost",
-        port: process.env.APP_PORT || 5000
+        host: process.env.HOST || "localhost",
+        port: process.env.PORT || 5000
     }
 }
