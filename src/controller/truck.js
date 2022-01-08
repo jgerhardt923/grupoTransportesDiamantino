@@ -1,6 +1,8 @@
 const MAIN_MODEL = require("../model/"+__filename.split(/[\\/]/).pop())
 
 const shippingCompanyModel = require("../model/shippingCompany");
+const paymentModel = require("../model/payment");
+
 
 module.exports = {
     get: async function(req, res){
@@ -17,8 +19,19 @@ module.exports = {
         }
     },
     post: async function(req, res){
+        let now = new Date()
         MAIN_MODEL.create(req.body)
         .then(data=>{
+            paymentModel.create({
+                truckId: data.id,
+                value: null,
+                Date: null,
+                expire: new Date(now.getFullYear(), now.getMonth()+1, 5).toISOString().split('T')[0],
+                reference: new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0],
+                payer: null,
+                format: null,
+                status: "pending"
+            })
             res.send({data:data});
         })
         .catch(err=>res.send({message:err, succeess:false}))

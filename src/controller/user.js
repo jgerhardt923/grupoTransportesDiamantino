@@ -2,9 +2,9 @@ const MAIN_MODEL = require("../model/"+__filename.split(/[\\/]/).pop())
 
 module.exports = {
     get: async function(req, res){
-        if(! req.user.superUser) res.send({message:"your not allowed to do this.", succeess:false});
         try{
             if(req.params.mode === "list"){
+                if(! req.user.superUser) res.send({message:"your not allowed to do this.", succeess:false});
                 let data = await MAIN_MODEL.findAll();
                 await res.send({data:data, succeess:true})
             }else{

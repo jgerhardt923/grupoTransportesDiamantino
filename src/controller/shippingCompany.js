@@ -15,7 +15,6 @@ module.exports = {
         }
     },
     post: async function(req, res){
-        console.log(req.body);
         MAIN_MODEL.create(req.body)
         .then(data=>{
             res.send({data:data});

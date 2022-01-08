@@ -9,7 +9,10 @@ module.exports = {
     },
     post:async(req, res)=>{
             userModel.findOne({
-                where:req.body
+                where:{
+                    name:req.body.name,
+                    password:req.body.password
+                }
             })
             .then(usr=>{
                 if(usr != null || undefined){
