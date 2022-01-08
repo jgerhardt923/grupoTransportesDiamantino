@@ -10,7 +10,7 @@ const travel = sequelize.define("travel", {
     weight: DataTypes.INTEGER,
 })
 
-travel.belongsTo(association);
-travel.belongsTo(freight);
+travel.belongsTo(association,{onDelete:"CASCADE"});
+travel.belongsTo(freight,{onDelete:"CASCADE"});
 
 module.exports = travel;

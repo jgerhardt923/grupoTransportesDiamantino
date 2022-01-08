@@ -13,6 +13,6 @@ const payment = sequelize.define("payment", {
     status: DataTypes.CHAR
 });
 
-payment.belongsTo(truckModel);
+payment.belongsTo(truckModel,{onDelete:"CASCADE"});
 
 module.exports = payment;

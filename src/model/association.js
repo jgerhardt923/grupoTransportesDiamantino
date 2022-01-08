@@ -8,7 +8,7 @@ const association = sequelize.define("association", {
     active: DataTypes.BOOLEAN
 })
 
-association.belongsTo(driver);
-association.belongsTo(truck);
+association.belongsTo(driver,{onDelete:"CASCADE"});
+association.belongsTo(truck,{onDelete:"CASCADE"});
 
 module.exports = association

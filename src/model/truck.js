@@ -13,6 +13,6 @@ const truck = sequelize.define("truck", {
     mt25: DataTypes.BOOLEAN,
 })
 
-truck.belongsTo(shippingCompany);
+truck.belongsTo(shippingCompany,{onDelete:"CASCADE"});
 
 module.exports = truck;

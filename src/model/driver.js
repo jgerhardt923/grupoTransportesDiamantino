@@ -11,6 +11,6 @@ const driver = sequelize.define("driver", {
     email: DataTypes.CHAR
 })
 
-driver.belongsTo(shippingCompany);
+driver.belongsTo(shippingCompany,{onDelete:"CASCADE"});
 
 module.exports = driver;

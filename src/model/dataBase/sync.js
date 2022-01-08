@@ -10,6 +10,7 @@
     const freight = require("../freight");
     const driver = require("../driver");
     const association = require("../association");
+    const payment = require("../payment");
 
     await sequelize.sync()
     .then(() => {
