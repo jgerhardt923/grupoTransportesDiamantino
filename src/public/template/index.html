@@ -11,7 +11,7 @@
 </head>
 <body>
     <section id="app">
-        <nav class="nav sticky-top navbar-light bg-light">
+          <nav class="nav sticky-top navbar-light bg-light">
             <a class="nav-link" href="#shippingcompanyContainer" @click="showHide('container modules','#shippingcompanyContainer');">Shipping Companys</a>
             <a class="nav-link" href="#truckContainer" @click="showHide('container modules','#truckContainer');">Trucks</a>
             <a class="nav-link" href="#driverContainer" @click="showHide('container modules','#driverContainer');">Drivers</a>
@@ -19,8 +19,15 @@
             <a class="nav-link" href="#associationContainer" @click="showHide('container modules','#associationContainer');">Associations</a>
             <a class="nav-link" href="#freightContainer" @click="showHide('container modules','#freightContainer');">Freights</a>
             <a class="nav-link" href="#travelContainer" @click="showHide('container modules','#travelContainer');">Travels</a>
-            <a v-if="currentUser.$.superUser" class="nav-link" href="#travelContainer" @click="showHide('container modules','#userContainer');">Users</a>
+            <a class="nav-link" href="#paymentContainer" @click="showHide('container modules','#paymentContainer');">Payments</a>
+            <a v-if="currentUser.$.superUser" class="nav-link" href="#userContainer" @click="showHide('container modules','#userContainer');">Users</a>
         </nav>
+
+        <div class="" id="statusContainer">
+          <p>
+            Loged as <b>{{ currentUser.$.name }}</b>
+          </p>
+        </div>
 
         <div class="container" id="main">
             <div class="container modules" id="shippingcompanyContainer" style="display: none;">
@@ -1070,6 +1077,102 @@
                 </div>
             </div>
 
+            <div class="container modules" id="paymentContainer" style="display: none;">
+              <h4>
+                Payment
+              </h4>
+              <div class="nav">
+                <button class="btn btn-primary m-4" @click="fetchListData('payment');">
+                  Reload
+                </button>
+              </div>
+                <div class="container table">
+                    <div class="form-group m-4">
+                      <label for="paymentFilterInput">Search</label>
+                      <input class="form-control w-25" type="text" id="paymentFilterInput" @keyup="filterModel('payment', '#paymentFilterInput')">
+                    </div>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Truck</th>
+                            <th scope="col">Payer</th>
+                            <th scope="col">Reference </th>
+                            <th scope="col">Expire Date</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Format</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Expired</th>
+                            <th scope="col">Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="payment in payment._data" :data-object="JSON.stringify(payment)" :id="'paymentRow' + payment.id">
+                            <th scope="row">{{ payment.id }}</th>
+                            <td>{{ payment.truck.plate }}</td>
+                            <td>{{ payment.payer }}</td>
+                            <td>{{ payment.reference }}</td>
+                            <td>{{ payment.expire }}</td>
+                            <td>{{ payment.date }}</td>
+                            <td>{{ payment.value }}</td>
+                            <td>{{ payment.format }}</td>
+                            <td>{{ payment.status }}</td>
+                            <td>
+                              <template v-if="payment.status === 'payed'">
+                                <span style="color: green;">Payed</span>
+                              </template>
+                              <template v-else>
+                                <template v-if="new Date(payment.expire) >= new Date()">
+                                  <span style="color: green;">Runing</span>
+                                </template>
+                                <template v-else>
+                                  <span style="color: red;">EXPIRED</span>
+                                </template>
+                              </template>
+                            </td>
+                            <td>
+                              <button v-if="payment.status !== 'payed'" class="btn btn-success btn-sm" @click="toggle('#paymentUpdateForm'+payment.id, 200);"><i class="bi bi-check-lg"></i></button>
+                              <button v-if="currentUser.$.superUser" class="btn btn-danger btn-sm" @click="deleteObject('payment',payment.id)"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                            <td v-if="payment.status !== 'payed'">
+                              <form :id="'paymentUpdateForm'+payment.id" style="display: none;">
+                                  <h5>
+                                      Pay {{ payment.truck.plate }} {{ payment.id }}
+                                  </h5>
+                                  <div class="form-group">
+                                    <div class="form-group">
+                                      <label for="payerInput">Payer</label>
+                                      <input type="text" class="form-control" id="payerInput" name="payer" :value="payment.payer">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="valueInput">Value</label>
+                                      <input type="number" class="form-control" id="valueInput" name="value" value="150">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="formatInput">Format</label><br>
+                                      <select name="format" id="formatInput">
+                                          <option value="cash">Cash</option>
+                                          <option value="check">Check</option>
+                                          <option value="bank transfer">Bank Transfer</option>
+                                          <option value="pix">Pix</option>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="dateInput">Date</label>
+                                      <input type="date" name="date" id="dateInput" :value="payment.date">
+                                    </div>
+                                    <input type="hidden" name="status" :value="payment.truckId">
+                                    <input type="hidden" name="status" value="payed">
+                                <button type="button" class="btn btn-success mt-4" @click="pay(payment.id);toggle('#paymentUpdateForm'+payment.id, 200);">Pay</button>
+                              </form>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+
             <div class="container modules" id="userContainer" style="display: none;" v-if="currentUser.$.superUser">
               <h4>
                 User
@@ -1096,10 +1199,13 @@
                         <input type="text" class="form-control" id="passwordInput" name="password">
                       </div>
                       <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="superUserInput" name="superUser">
-                          <label class="form-check-label" for="superUserInput">
-                            SuperUser?
-                          </label>
+                        <label class="form-check-label" for="superUserInput">
+                          SuperUser
+                        </label>
+                        <select class="form-control" name="superUser" id="superUserInput">
+                          <option value="0" selected>Não</option>
+                          <option value="1">Sim</option>
+                        </select>
                       </div>
                       <button type="button" class="btn btn-primary mt-4" @click="submitData('#userForm')">Save</button>
                   </form>
@@ -1125,33 +1231,35 @@
                             <td>{{ user.name }}</td>
                             <td>{{ user.password }}</td>
                             <td>{{ user.superUser }}</td>
-                            <td>
-                              <button class="btn btn-primary btn-sm" @click="toggle('#userUpdateForm'+user.id, 200);"><i class="bi bi-pencil-fill"></i></button>
-                              <button class="btn btn-danger btn-sm" @click="deleteObject('user',user.id)"><i class="bi bi-trash-fill"></i></button>
-                            </td>
-                            <td>
-                              <form :id="'userUpdateForm'+user.id" style="display: none;">
-                                  <h5>
-                                      Update {{ user.name }}
-                                  </h5>
-                                  <div class="form-group">
-                                      <label for="nameInput">Name</label>
-                                      <input type="text" class="form-control" id="nameInput" name="name" :value="user.name">
-                                    </div>
+                            <template v-if="user.id !== currentUser.$.id">
+                              <td>
+                                <button class="btn btn-primary btn-sm" @click="toggle('#userUpdateForm'+user.id, 200);"><i class="bi bi-pencil-fill"></i></button>
+                                <button class="btn btn-danger btn-sm" @click="deleteObject('user',user.id)"><i class="bi bi-trash-fill"></i></button>
+                              </td>
+                              <td>
+                                <form :id="'userUpdateForm'+user.id" style="display: none;">
+                                    <h5>
+                                        Update {{ user.name }}
+                                    </h5>
                                     <div class="form-group">
-                                      <label for="passwordInput">Password</label>
-                                      <input type="text" class="form-control" id="passwordInput" name="password" :value="user.password">
-                                    </div>
-                                    <div class="form-check">
-                                        <input v-if="user.superUser" class="form-check-input" type="checkbox" id="superUserInput" name="superUser" checked>
-                                        <input v-else class="form-check-input" type="checkbox" id="superUserInput" name="superUser">
-                                        <label class="form-check-label" for="superUserInput">
-                                          SuperUser?
-                                        </label>
-                                    </div>
-                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#userUpdateForm'+user.id, user.id);toggle('#userUpdateForm'+user.id, 200);">Update</button>
-                              </form>
-                            </td>
+                                        <label for="nameInput">Name</label>
+                                        <input type="text" class="form-control" id="nameInput" name="name" :value="user.name">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="passwordInput">Password</label>
+                                        <input type="text" class="form-control" id="passwordInput" name="password" :value="user.password">
+                                      </div>
+                                      <div class="form-check">
+                                        <select class="form-control" name="superUser" id="superUserInput">
+                                          <option v-if="user.superUser" value="1" selected>Sim</option>
+                                          <option value="0">Não</option>
+                                          <option value="1">Sim</option>
+                                        </select>
+                                      </div>
+                                  <button type="button" class="btn btn-primary mt-4" @click="updateData('#userUpdateForm'+user.id, user.id);toggle('#userUpdateForm'+user.id, 200);">Update</button>
+                                </form>
+                              </td>
+                            </template>
                           </tr>
                         </tbody>
                       </table>
@@ -1162,6 +1270,7 @@
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
     <script src="/static/js/functions.js"></script>
     <script src="/static/js/index.js"></script>
     <script>

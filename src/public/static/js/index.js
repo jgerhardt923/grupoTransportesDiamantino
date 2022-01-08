@@ -67,8 +67,7 @@ var app = new Vue(
                     this._data = data;
                     this.$data = data;
                 }
-            }
-            ,
+            },
             travel:{
                 data:[],
                 _data:[],
@@ -82,6 +81,16 @@ var app = new Vue(
                         val.driverName = val.association.driver.name;
                         val.driverCpf = val.association.driver.cpf;
                     })
+                    this._data = data;
+                    this.$data = data;
+                }
+            },
+            payment:{
+                data:[],
+                _data:[],
+                $data:[],
+                set data(value){
+                    data = value;
                     this._data = data;
                     this.$data = data;
                 }
@@ -123,10 +132,7 @@ var app = new Vue(
                 $.ajax({
                     url: url,
                     method:"POST",
-                    data:getFormData($form),
-                    success:data=>{
-                        this[model].data = data.data;
-                    }
+                    data:getFormData($form)
                 }).done(data=>{alert("Created!");this.fetchListData(model)})
             },
             updateData:function(form, id){
@@ -195,6 +201,25 @@ var app = new Vue(
                     success:data=>{
                         this.currentUser.data = data.data;
                     }
+                })
+            },
+            pay:function(id){
+                let $form = $("#paymentUpdateForm"+id);
+                let url = "/payment/update/"+id;
+                $.ajax({
+                    url: url,
+                    method:"PUT",
+                    data:getFormData($form),
+                    success:data=>{
+                        if(data.success === false){
+                            alert("something wrong!");
+                        }
+                        console.log(data);
+                        genReceipt(data.data);
+                    }
+                }).done(data=>{
+                    alert("Payed!");
+                    this.fetchListData('payment');
                 })
             }
         }
