@@ -1,7 +1,30 @@
 const Sequelize = require("sequelize");
 const config = require("../../config")
 
-const sequelize = new Sequelize(
+require("dotenv").config()
+
+const Sequelize = require('sequelize');
+sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
+  }
+);
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+
+/*const sequelize = new Sequelize(
     config.dataBase.name,
     config.dataBase.user,
     config.dataBase.password,
@@ -10,6 +33,6 @@ const sequelize = new Sequelize(
         host:config.dataBase.host,
         logging:false,
     }
-);
+);*/
 
 module.exports = sequelize;
