@@ -12,43 +12,43 @@
 <body>
     <section id="app">
           <nav class="nav sticky-top navbar-light bg-light">
-            <a class="nav-link" href="#shippingcompanyContainer" @click="showHide('container modules','#shippingcompanyContainer');">Shipping Companys</a>
-            <a class="nav-link" href="#truckContainer" @click="showHide('container modules','#truckContainer');">Trucks</a>
-            <a class="nav-link" href="#driverContainer" @click="showHide('container modules','#driverContainer');">Drivers</a>
-            <a class="nav-link" href="#localContainer" @click="showHide('container modules','#localContainer');">Locals</a>
-            <a class="nav-link" href="#associationContainer" @click="showHide('container modules','#associationContainer');">Associations</a>
-            <a class="nav-link" href="#freightContainer" @click="showHide('container modules','#freightContainer');">Freights</a>
-            <a class="nav-link" href="#travelContainer" @click="showHide('container modules','#travelContainer');">Travels</a>
-            <a class="nav-link" href="#paymentContainer" @click="showHide('container modules','#paymentContainer');">Payments</a>
-            <a v-if="currentUser.$.superUser" class="nav-link" href="#userContainer" @click="showHide('container modules','#userContainer');">Users</a>
+            <a class="nav-link" href="#shippingcompanyContainer" @click="showHide('container modules','#shippingcompanyContainer');">Transportadoras</a>
+            <a class="nav-link" href="#truckContainer" @click="showHide('container modules','#truckContainer');">Caminhões</a>
+            <a class="nav-link" href="#driverContainer" @click="showHide('container modules','#driverContainer');">Motoristas</a>
+            <a class="nav-link" href="#localContainer" @click="showHide('container modules','#localContainer');">Locais</a>
+            <a class="nav-link" href="#associationContainer" @click="showHide('container modules','#associationContainer');">Associações</a>
+            <a class="nav-link" href="#freightContainer" @click="showHide('container modules','#freightContainer');">Fretes</a>
+            <a class="nav-link" href="#travelContainer" @click="showHide('container modules','#travelContainer');">Viagens</a>
+            <a class="nav-link" href="#paymentContainer" @click="showHide('container modules','#paymentContainer');">Pagamentos</a>
+            <a v-if="currentUser.$.superUser" class="nav-link" href="#userContainer" @click="showHide('container modules','#userContainer');">Usuarios</a>
         </nav>
 
         <div class="" id="statusContainer">
           <p>
-            Loged as <b>{{ currentUser.$.name }}</b>
+            Logado como <b>{{ currentUser.$.name }}</b>
           </p>
         </div>
 
         <div class="container" id="main">
             <div class="container modules" id="shippingcompanyContainer" style="display: none;">
               <h4>
-                Shipping Company
+                Transportadoras
               </h4>
               <div class="nav">
                 <button class="btn btn-primary m-4" @click="fetchListData('shippingcompany');">
-                  Reload
+                  Recarregar
                 </button>
                 <button type="button" class="btn btn-primary m-4" onclick="$('#shippingcompanyFormContainer').toggle(200)">
-                  New
+                  Novo
                 </button>
               </div>
                 <div class="container m-4 form" id="shippingcompanyFormContainer" style="display: none;">
                   <h5>
-                    New Shipping Company
+                    Nova Transportadora
                   </h5>
                   <form id="shippingcompanyForm">
                     <div class="form-group">
-                      <label for="nameInput">Name</label>
+                      <label for="nameInput">Nome</label>
                       <input type="text" class="form-control" id="nameInput" name="name">
                     </div>
                     <div class="form-group">
@@ -56,35 +56,35 @@
                       <input type="text" class="form-control" id="cnpjInput" name="cnpj">
                     </div>
                     <div class="form-group">
-                      <label for="adminNameInput">ADM Name</label>
+                      <label for="adminNameInput">Nome Admin</label>
                       <input type="text" class="form-control" id="adminNameInput" name="adminName">
                     </div>
                     <div class="form-group">
-                      <label for="adminCpfInput">ADM CPF</label>
+                      <label for="adminCpfInput">CPF Admin</label>
                       <input type="text" class="form-control" id="adminCpfInput" name="adminCpf">
                     </div>
                     <div class="form-group">
-                      <label for="adminPasswordInput">ADM Password</label>
+                      <label for="adminPasswordInput">Senha Admin</label>
                       <input type="text" class="form-control" id="adminPasswordInput" name="adminPassword">
                     </div>
-                    <button type="button" class="btn btn-primary mt-4" @click="submitData('#shippingcompanyForm')">Save</button>
+                    <button type="button" class="btn btn-primary mt-4" @click="submitData('#shippingcompanyForm')">Salvar</button>
                   </form>
                 </div>
                 <div class="container table">
                     <div class="form-group m-4">
-                      <label for="shippingCompanyFilterInput">Search</label>
+                      <label for="shippingCompanyFilterInput">Procurar</label>
                       <input class="form-control w-25" type="text" id="shippingCompanyFilterInput" @keyup="filterModel('shippingcompany', '#shippingCompanyFilterInput')">
                     </div>
                     <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">name</th>
-                            <th scope="col">cnpj</th>
-                            <th scope="col">adminName</th>
-                            <th scope="col">adminCpf</th>
-                            <th scope="col">adminPassword</th>
-                            <th scope="col">Options</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">CNPJ</th>
+                            <th scope="col">Nome Admin</th>
+                            <th scope="col">CPF Admin</th>
+                            <th scope="col">Senha Admin</th>
+                            <th scope="col">Opções</th>
                           </tr>
                         </thead>
                         <tbody id="shippingCompanyBody">
@@ -102,10 +102,10 @@
                             <td>
                               <form :id="'shippingcompanyUpdateForm'+sc.id" style="display: none;">
                                 <h5>
-                                  Update {{ sc.name }}
+                                  Atualizar {{ sc.name }}
                                 </h5>
                                 <div class="form-group">
-                                  <label for="nameInput">Name</label>
+                                  <label for="nameInput">Nome</label>
                                   <input type="text" class="form-control" id="nameInput" name="name" :value="sc.name">
                                 </div>
                                 <div class="form-group">
@@ -113,18 +113,18 @@
                                   <input type="text" class="form-control" id="cnpjInput" name="cnpj" :value="sc.cnpj">
                                 </div>
                                 <div class="form-group">
-                                  <label for="adminNameInput">ADM Name</label>
+                                  <label for="adminNameInput">Nome Admin</label>
                                   <input type="text" class="form-control" id="adminNameInput" name="adminName" :value="sc.adminName">
                                 </div>
                                 <div class="form-group">
-                                  <label for="adminCpfInput">ADM CPF</label>
+                                  <label for="adminCpfInput">CPF Admin</label>
                                   <input type="text" class="form-control" id="adminCpfInput" name="adminCpf" :value="sc.adminCpf">
                                 </div>
                                 <div class="form-group">
-                                  <label for="adminPasswordInput">ADM Password</label>
+                                  <label for="adminPasswordInput">Senha Admin</label>
                                   <input type="text" class="form-control" id="adminPasswordInput" name="adminPassword" :value="sc.adminPassword">
                                 </div>
-                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#shippingcompanyUpdateForm'+sc.id, sc.id);toggle('#shippingcompanyUpdateForm'+sc.id, 200);">Update</button>
+                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#shippingcompanyUpdateForm'+sc.id, sc.id);toggle('#shippingcompanyUpdateForm'+sc.id, 200);">Atualizar</button>
                               </form>
                             </td>
                           </tr>
@@ -135,23 +135,23 @@
 
             <div class="container modules" id="truckContainer" style="display: none;">
               <h4>
-                Truck
+                Caminhões
               </h4>
               <div class="nav">
                 <button class="btn btn-primary m-4" @click="fetchListData('truck');">
-                  Reload
+                  Recarregar
                 </button>
                 <button type="button" class="btn btn-primary m-4" onclick="$('#truckFormContainer').toggle(200)">
-                  New
+                  Novo
                 </button>
               </div>
                 <div class="container m-4 form" id="truckFormContainer" style="display: none;">
                   <h5>
-                    New truck
+                    Novo Caminhão
                   </h5>
                   <form id="truckForm">
                     <div class="form-group">
-                      <label for="shippingCompanyInput">Shipping Company</label>
+                      <label for="shippingCompanyInput">Transportadora</label>
                       <input 
                         type="text" 
                         class="form-control" 
@@ -165,32 +165,35 @@
                       </datalist>
                     </div>
                     <div class="form-group">
-                      <label for="plateInput">Tractor Plate</label>
+                      <label for="plateInput">Placa Trator</label>
                       <input type="text" class="form-control" id="plateInput" name="plate">
                     </div>
                     <div class="form-group">
-                      <label for="plate1Input">Plate 2</label>
+                      <label for="plate1Input">Placa 2</label>
                       <input type="text" class="form-control" id="plate1Input" name="plate1">
                     </div>
                     <div class="form-group">
-                      <label for="plate2Input">Plate 3</label>
+                      <label for="plate2Input">Placa 3</label>
                       <input type="text" class="form-control" id="plate2Input" name="plate2">
                     </div>
                     <div class="form-group">
-                      <label for="plate3Input">Plate 4</label>
+                      <label for="plate3Input">Placa 4</label>
                       <input type="text" class="form-control" id="plate3Input" name="plate3">
                     </div>
                     <div class="form-group">
-                      <label for="axesInput">Axes</label>
+                      <label for="axesInput">Eixos</label>
                       <select class="form-control" id="axesInput" name="axes">
+                        <option value="5">5</option>
                         <option value="6">6</option>
                         <option value="7">7</option>
+                        <option value="8">8</option>
                         <option value="9">9</option>
                       </select>
                     </div>
                     <div class="form-group">
-                      <label for="capacityInput">Capacity</label>
+                      <label for="capacityInput">Capacidade</label>
                       <select class="form-control" id="capacityInput" name="capacity">
+                        <option value="32">32 tn</option>
                         <option value="36">36 tn</option>
                         <option value="37">37 tn</option>
                         <option value="48">48 tn</option>
@@ -203,27 +206,27 @@
                         25 MT?
                       </label>
                     </div>
-                    <button type="button" class="btn btn-primary mt-4" @click="submitData('#truckForm')">Save</button>
+                    <button type="button" class="btn btn-primary mt-4" @click="submitData('#truckForm')">Salvar</button>
                   </form>
                 </div>
                 <div class="container table">
                     <div class="form-group m-4">
-                      <label for="truckFilterInput">Search</label>
+                      <label for="truckFilterInput">Procurar</label>
                       <input class="form-control w-25" type="text" id="truckFilterInput" @keyup="filterModel('truck', '#truckFilterInput')">
                     </div>
                     <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Shipping Company</th>
-                            <th scope="col">Tractor Plate</th>
-                            <th scope="col">Plate 2</th>
-                            <th scope="col">Plate 3</th>
-                            <th scope="col">Plate 4</th>
-                            <th scope="col">Axes</th>
-                            <th scope="col">Capacity</th>
+                            <th scope="col">Transportadora</th>
+                            <th scope="col">Placa Trator</th>
+                            <th scope="col">Placa 2</th>
+                            <th scope="col">Placa 3</th>
+                            <th scope="col">Placa 4</th>
+                            <th scope="col">Eixos</th>
+                            <th scope="col">Capacidade</th>
                             <th scope="col">25 MT?</th>
-                            <th scope="col">Options</th>
+                            <th scope="col">Opções</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -244,10 +247,10 @@
                             <td>
                               <form :id="'truckUpdateForm'+truck.id" style="display: none;">
                                 <h5>
-                                  Update {{ truck.plate }}
+                                  Atualizar {{ truck.plate }}
                                 </h5>
                                 <div class="form-group">
-                                  <label for="shippingCompanyInput">Shipping Company</label>
+                                  <label for="shippingCompanyInput">Transportadora</label>
                                   <input 
                                     type="text" 
                                     class="form-control" 
@@ -262,34 +265,37 @@
                                   </datalist>
                                 </div>
                                 <div class="form-group">
-                                  <label for="plateInput">Tractor Plate</label>
+                                  <label for="plateInput">Placa Trator</label>
                                   <input type="text" class="form-control" id="plateInput" name="plate" :value="truck.plate">
                                 </div>
                                 <div class="form-group">
-                                  <label for="plate1Input">Plate 2</label>
+                                  <label for="plate1Input">Placa 2</label>
                                   <input type="text" class="form-control" id="plate1Input" name="plate1" :value="truck.plate1">
                                 </div>
                                 <div class="form-group">
-                                  <label for="plate2Input">Plate 3</label>
+                                  <label for="plate2Input">Placa 3</label>
                                   <input type="text" class="form-control" id="plate2Input" name="plate2" :value="truck.plate2">
                                 </div>
                                 <div class="form-group">
-                                  <label for="plate3Input">Plate 4</label>
+                                  <label for="plate3Input">Placa 4</label>
                                   <input type="text" class="form-control" id="plate3Input" name="plate3" :value="truck.plate3">
                                 </div>
                                 <div class="form-group">
-                                  <label for="axesInput">Axes</label>
+                                  <label for="axesInput">Eixos</label>
                                   <select class="form-control" id="axesInput" name="axes">
                                     <option :value="truck.axes" selected>{{ truck.axes }}</option>
+                                    <option value="5">5</option>
                                     <option value="6">6</option>
                                     <option value="7">7</option>
+                                    <option value="8">8</option>
                                     <option value="9">9</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                  <label for="capacityInput">Capacity</label>
+                                  <label for="capacityInput">Capacidade</label>
                                   <select class="form-control" id="capacityInput" name="capacity">
                                     <option :value="truck.capacity" selected>{{ truck.capacity }} tn</option>
+                                    <option value="32">32 tn</option>
                                     <option value="36">36 tn</option>
                                     <option value="37">37 tn</option>
                                     <option value="48">48 tn</option>
@@ -303,7 +309,7 @@
                                     25 MT?
                                   </label>
                                 </div>
-                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#truckUpdateForm'+truck.id, truck.id);toggle('#truckUpdateForm'+truck.id, 200);">Update</button>
+                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#truckUpdateForm'+truck.id, truck.id);toggle('#truckUpdateForm'+truck.id, 200);">Atualizar</button>
                               </form>
                             </td>
                           </tr>
@@ -314,37 +320,23 @@
 
             <div class="container modules" id="driverContainer" style="display: none;">
               <h4>
-                Driver
+                Motoristas
               </h4>
               <div class="nav">
                 <button class="btn btn-primary m-4" @click="fetchListData('driver');">
-                  Reload
+                  Recarregar
                 </button>
                 <button type="button" class="btn btn-primary m-4" onclick="$('#driverFormContainer').toggle(200)">
-                  New
+                  Novo
                 </button>
               </div>
                 <div class="container m-4 form" id="driverFormContainer" style="display: none;">
                   <h5>
-                    New Driver
+                    Novo Motorista
                   </h5>
                   <form id="driverForm">
                       <div class="form-group">
-                          <label for="shippingCompanyInput">Shipping Company</label>
-                          <input 
-                            type="text" 
-                            class="form-control" 
-                            id="shippingCompanyInput" 
-                            name="shippingCompanyId" 
-                            list="shippingCompanyDataList">
-                          <datalist id="shippingCompanyDataList">
-                            <option  v-for="sc in shippingcompany.$data" :value="sc.id">
-                              {{ sc.name }} - {{ sc.cnpj }}
-                            </option>
-                          </datalist>
-                      </div>
-                      <div class="form-group">
-                          <label for="nameInput">Name</label>
+                          <label for="nameInput">Nome</label>
                           <input type="text" class="form-control" id="nameInput" name="name">
                       </div>
                       <div class="form-group">
@@ -352,7 +344,7 @@
                           <input type="text" class="form-control" id="cpfInput" name="cpf">
                       </div>
                       <div class="form-group">
-                          <label for="phoneInput">Phone</label>
+                          <label for="phoneInput">Telefone</label>
                           <input type="text" class="form-control" id="phoneInput" name="phone">
                       </div>
                       <div class="form-group">
@@ -360,7 +352,7 @@
                           <input type="email" class="form-control" id="emailInput" name="email">
                       </div>
                       <div class="form-group">
-                          <label for="passwordInput">Password</label>
+                          <label for="passwordInput">Senha</label>
                           <input type="text" class="form-control" id="passwordInput" name="password">
                       </div>
                       <button type="button" class="btn btn-primary mt-4" @click="submitData('#driverForm')">Save</button>
@@ -369,25 +361,23 @@
                 <div class="container table">
                     <table class="table">
                         <div class="form-group m-4">
-                          <label for="driverFilterInput">Search</label>
+                          <label for="driverFilterInput">Procurar</label>
                           <input class="form-control w-25" type="text" id="driverFilterInput" @keyup="filterModel('driver', '#driverFilterInput')">
                         </div>
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Shipping Company</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Nome</th>
                             <th scope="col">CPF</th>
-                            <th scope="col">Phone</th>
+                            <th scope="col">Telefone</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Options</th>
+                            <th scope="col">Senha</th>
+                            <th scope="col">Opções</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr v-for="driver in driver._data" :data-object="JSON.stringify(driver)" :id="driver.id">
                             <th scope="row">{{ driver.id }}</th>
-                            <td>{{ driver.shippingCompany.name }}</td>
                             <td>{{ driver.name }}</td>
                             <td>{{ driver.cpf }}</td>
                             <td>{{ driver.phone }}</td>
@@ -400,23 +390,8 @@
                             <td>
                               <form :id="'driverUpdateForm'+driver.id" style="display: none;">
                                   <h5>
-                                      Update {{ driver.name }}
+                                      Atualizar {{ driver.name }}
                                   </h5>
-                                  <div class="form-group">
-                                      <label for="shippingCompanyInput">Shipping Company</label>
-                                      <input 
-                                      type="text" 
-                                      class="form-control" 
-                                      id="shippingCompanyInput" 
-                                      name="shippingCompanyId" 
-                                      list="shippingCompanyDataList"
-                                      :value="driver.shippingCompanyId">
-                                      <datalist id="shippingCompanyDataList">
-                                      <option  v-for="sc in shippingcompany.$data" :value="sc.id">
-                                          {{ sc.name }} - {{ sc.cnpj }}
-                                      </option>
-                                      </datalist>
-                                  </div>
                                   <div class="form-group">
                                       <label for="nameInput">Name</label>
                                       <input type="text" class="form-control" id="nameInput" name="name" :value="driver.name">
@@ -426,7 +401,7 @@
                                       <input type="text" class="form-control" id="cpfInput" name="cpf" :value="driver.cpf">
                                   </div>
                                   <div class="form-group">
-                                      <label for="phoneInput">Phone</label>
+                                      <label for="phoneInput">Telefone</label>
                                       <input type="text" class="form-control" id="phoneInput" name="phone" :value="driver.phone">
                                   </div>
                                   <div class="form-group">
@@ -434,10 +409,10 @@
                                       <input type="email" class="form-control" id="emailInput" name="email" :value="driver.email">
                                   </div>
                                   <div class="form-group">
-                                      <label for="passwordInput">Password</label>
+                                      <label for="passwordInput">Senha</label>
                                       <input type="text" class="form-control" id="passwordInput" name="password" :value="driver.password">
                                   </div>
-                                  <button type="button" class="btn btn-primary mt-4" @click="updateData('#driverUpdateForm'+driver.id, driver.id);toggle('#driverUpdateForm'+driver.id, 200);">Update</button>
+                                  <button type="button" class="btn btn-primary mt-4" @click="updateData('#driverUpdateForm'+driver.id, driver.id);toggle('#driverUpdateForm'+driver.id, 200);">Atualizar</button>
                               </form>
                             </td>
                           </tr>
@@ -448,38 +423,41 @@
 
             <div class="container modules" id="localContainer" style="display: none;">
               <h4>
-                Local
+                Locais
               </h4>
               <div class="nav">
                 <button class="btn btn-primary m-4" @click="fetchListData('local');">
-                  Reload
+                  Recarregar
                 </button>
                 <button type="button" class="btn btn-primary m-4" onclick="$('#localFormContainer').toggle(200)">
-                  New
+                  Novo
                 </button>
               </div>
                 <div class="container m-4 form" id="localFormContainer" style="display: none;">
                   <h5>
-                    New Local
+                    Novo Local
                   </h5>
                   <form id="localForm">
                       <div class="form-group">
-                        <label for="typeInput">Type</label>
+                        <label for="typeInput">Tipo</label>
                         <select class="form-control" name="type" id="typeInput">
-                          <option value="warehouse">Warehouse</option>
-                          <option value="farm">Farm</option>
+                          <option value="Armazem">Armazem</option>
+                          <option value="Fazenda">Fazenda</option>
+                          <option value="Terminal ferroviario">Terminal Ferroviario</option>
+                          <option value="Terminal portuario">Terminal Portuario</option>
+                          <option value="Industria">Industria</option>
                         </select>
                       </div>
                       <div class="form-group">
-                          <label for="nameInput">Name</label>
+                          <label for="nameInput">Nome</label>
                           <input type="text" class="form-control" id="nameInput" name="name">
                       </div>
                       <div class="form-group">
-                          <label for="cityInput">City</label>
+                          <label for="cityInput">Cidade</label>
                           <input type="text" class="form-control" id="cityInput" name="city">
                       </div>
                       <div class="form-group">
-                        <label for="stateInput">State</label>
+                        <label for="stateInput">Estado</label>
                         <select class="form-control" name="state" id="stateInput">
                           <option value="AC">Acre</option>
                           <option value="AL">Alagoas</option>
@@ -512,7 +490,7 @@
                         </select>
                       </div>
                       <div class="form-group">
-                          <label for="phoneInput">Phone</label>
+                          <label for="phoneInput">Telefone</label>
                           <input type="text" class="form-control" id="phoneInput" name="phone">
                       </div>
                       <div class="form-group">
@@ -520,36 +498,36 @@
                           <input type="email" class="form-control" id="emailInput" name="email">
                       </div>
                       <div class="form-group">
-                          <label for="addressInput">Address</label>
+                          <label for="addressInput">Endereço</label>
                           <input type="text" class="form-control" id="addressInput" name="address">
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="balance25mtInput" name="balance25mt">
                         <label class="form-check-label" for="balance25mtInput">
-                          Balance 25 Mt
+                          Balança 25 Mt
                         </label>
                       </div>
-                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#localForm')">Save</button>
+                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#localForm')">Salvar</button>
                   </form>
                 </div>
                 <div class="container table">
                     <div class="form-group m-4">
-                      <label for="localFilterInput">Search</label>
+                      <label for="localFilterInput">Procurar</label>
                       <input class="form-control w-25" type="text" id="localFilterInput" @keyup="filterModel('local', '#localFilterInput')">
                     </div>
                     <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">City</th>
-                            <th scope="col">State</th>
-                            <th scope="col">Phone</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Cidade</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Telefone</th>
                             <th scope="col">Email</th>
-                            <th scope="col">address</th>
-                            <th scope="col">Balance 25 Mt</th>
-                            <th scope="col">Options</th>
+                            <th scope="col">Endereço</th>
+                            <th scope="col">Balança 25 Mt</th>
+                            <th scope="col">Opções</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -570,26 +548,29 @@
                             <td>
                               <form :id="'localUpdateForm'+local.id" style="display: none;">
                                   <h5>
-                                      Update {{ local.name }} {{ local.type }}
+                                      Atualizar {{ local.name }} {{ local.type }}
                                   </h5>
                                   <div class="form-group">
-                                    <label for="typeInput">Type</label>
+                                    <label for="typeInput">Tipo</label>
                                     <select class="form-control" name="type" id="typeInput">
                                       <option :value="local.type" selected>{{ local.type }}</option>
-                                      <option value="warehouse">Warehouse</option>
-                                      <option value="farm">Farm</option>
+                                      <option value="Armazem">Armazem</option>
+                                      <option value="Fazenda">Fazenda</option>
+                                      <option value="Terminal ferroviario">Terminal Ferroviario</option>
+                                      <option value="Terminal portuario">Terminal Portuario</option>
+                                      <option value="Industria">Industria</option>
                                     </select>
                                   </div>
                                   <div class="form-group">
-                                      <label for="nameInput">Name</label>
+                                      <label for="nameInput">Nome</label>
                                       <input type="text" class="form-control" id="nameInput" name="name" :value="local.name">
                                   </div>
                                   <div class="form-group">
-                                      <label for="cityInput">City</label>
+                                      <label for="cityInput">Cidade</label>
                                       <input type="text" class="form-control" id="cityInput" name="city" :value="local.city">
                                   </div>
                                   <div class="form-group">
-                                    <label for="stateInput">State</label>
+                                    <label for="stateInput">Estado</label>
                                     <select class="form-control" name="state" id="stateInput">
                                       <option :value="local.state">{{ local.state }}</option>
                                       <option value="AC">Acre</option>
@@ -623,7 +604,7 @@
                                     </select>
                                   </div>
                                   <div class="form-group">
-                                      <label for="phoneInput">Phone</label>
+                                      <label for="phoneInput">Telefone</label>
                                       <input type="text" class="form-control" id="phoneInput" name="phone" :value="local.phone">
                                   </div>
                                   <div class="form-group">
@@ -631,7 +612,7 @@
                                       <input type="email" class="form-control" id="emailInput" name="email" :value="local.email">
                                   </div>
                                   <div class="form-group">
-                                      <label for="addressInput">Address</label>
+                                      <label for="addressInput">Endereço</label>
                                       <input type="text" class="form-control" id="addressInput" name="address" :value="local.address">
                                   </div>
                                   <div class="form-check">
@@ -641,7 +622,7 @@
                                       <input type="hidden" value="0">
                                     </template>
                                     <label class="form-check-label" for="balance25mtInput">
-                                      Balance 25 Mt
+                                      Balança 25 Mt
                                     </label>
                                   </div>
                                   <button type="button" class="btn btn-primary mt-4" @click="updateData('#localUpdateForm'+local.id, local.id);toggle('#localUpdateForm'+local.id, 200);">Update</button>
@@ -655,23 +636,23 @@
 
             <div class="container modules" id="associationContainer" style="display: none;">
               <h4>
-                Association
+                Associação
               </h4>
               <div class="nav">
                 <button class="btn btn-primary m-4" @click="fetchListData('association');">
-                  Reload
+                  Recarregar
                 </button>
                 <button type="button" class="btn btn-primary m-4" onclick="$('#associationFormContainer').toggle(200)">
-                  New
+                  Novo
                 </button>
               </div>
                 <div class="container m-4 form" id="associationFormContainer" style="display: none;">
                   <h5>
-                    New Association
+                    Nova Associação
                   </h5>
                   <form id="associationForm">
                       <div class="form-group">
-                        <label for="truckInput">Truck</label>
+                        <label for="truckInput">Caminhão</label>
                         <input type="text" class="form-control" list="truckDataList" id="truckInput" name="truckId">
                         <datalist id="truckDataList">
                           <option  v-for="truck in truck.$data" :value="truck.id">
@@ -680,7 +661,7 @@
                         </datalist>
                       </div>
                       <div class="form-group">
-                        <label for="driverInput">Driver</label>
+                        <label for="driverInput">Motorista</label>
                         <input type="text" class="form-control" list="driverDataList" id="driverInput" name="driverId">
                         <datalist id="driverDataList">
                           <option  v-for="driver in driver.$data" :value="driver.id">
@@ -689,26 +670,26 @@
                         </datalist>
                       </div>
                       <input type="hidden" name="active" value="1">
-                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#associationForm')">Save</button>
+                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#associationForm')">Salvar</button>
                   </form>
                 </div>
                 <div class="container table">
                     <div class="form-group m-4">
-                      <label for="associationFilterInput">Search</label>
+                      <label for="associationFilterInput">Procurar</label>
                       <input class="form-control w-25" type="text" id="associationFilterInput" @keyup="filterModel('association', '#associationFilterInput')">
                     </div>
                     <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Diver Name</th>
-                            <th scope="col">Driver CPF</th>
-                            <th scope="col">Truck Tractor</th>
-                            <th scope="col">Truck Capacity</th>
+                            <th scope="col">Nome Motorista</th>
+                            <th scope="col">CPF Motorista</th>
+                            <th scope="col">Placa Caminhão</th>
+                            <th scope="col">Capacidade Caminhão</th>
                             <th scope="col">25 MT</th>
-                            <th scope="col">Active</th>
-                            <th scope="col">Vector Admin Login</th>
-                            <th scope="col">Options</th>
+                            <th scope="col">Ativo</th>
+                            <th scope="col">Login Admin Vector</th>
+                            <th scope="col">Opções</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -720,7 +701,7 @@
                             <td>{{ association.truck.capacity }}</td>
                             <td>{{ association.truck.mt25 }}</td>
                             <td>{{ association.active }}</td>
-                            <td><b>{{ association.truck.shippingCompany.adminCpf }}</b> on <b>{{ association.truck.shippingCompany.adminPassword }}</b></td>
+                            <td><b>{{ association.truck.shippingCompany.adminCpf }}</b> => <b>{{ association.truck.shippingCompany.adminPassword }}</b></td>
                             <td>
                               <button class="btn btn-primary btn-sm" @click="toggle('#associationUpdateForm'+association.id, 200);"><i class="bi bi-pencil-fill"></i></button>
                               <button class="btn btn-danger btn-sm" @click="deleteObject('association',association.id)"><i class="bi bi-trash-fill"></i></button>
@@ -731,7 +712,7 @@
                                       Update {{ association.truck.plate }} - {{ association.driver.name }}
                                   </h5>
                                   <div class="form-group">
-                                      <label for="truckInput">Truck</label>
+                                      <label for="truckInput">Caminhão</label>
                                       <input type="text" class="form-control" list="truckDataList" id="truckInput" name="truckId" :value="association.truckId">
                                       <datalist id="truckDataList">
                                         <option  v-for="truck in truck.$data" :value="truck.id">
@@ -740,7 +721,7 @@
                                       </datalist>
                                   </div>
                                   <div class="form-group">
-                                    <label for="driverInput">Driver</label>
+                                    <label for="driverInput">Motorista</label>
                                     <input type="text" class="form-control" list="driverDataList" id="driverInput" name="driverId" :value="association.driverId">
                                     <datalist id="driverDataList">
                                       <option  v-for="driver in driver.$data" :value="driver.id">
@@ -749,7 +730,7 @@
                                     </datalist>
                                 </div>
                                 <input type="hidden" name="active" value="1">
-                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#associationUpdateForm'+association.id, association.id);toggle('#associationUpdateForm'+association.id, 200);">Update</button>
+                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#associationUpdateForm'+association.id, association.id);toggle('#associationUpdateForm'+association.id, 200);">Atualizar</button>
                               </form>
                             </td>
                           </tr>
@@ -760,23 +741,23 @@
 
             <div class="container modules" id="freightContainer" style="display: none;">
               <h4>
-                Freight
+                Frete
               </h4>
               <div class="nav">
                 <button class="btn btn-primary m-4" @click="fetchListData('freight');">
-                  Reload
+                  Recarregar
                 </button>
                 <button type="button" class="btn btn-primary m-4" onclick="$('#freightFormContainer').toggle(200)">
-                  New
+                  Novo
                 </button>
               </div>
                 <div class="container m-4 form" id="freightFormContainer" style="display: none;">
                   <h5>
-                    New Freight
+                    Novo Frete
                   </h5>
                   <form id="freightForm">
                       <div class="form-group">
-                        <label for="chargingInput">Charging</label>
+                        <label for="chargingInput">Embarque</label>
                         <input type="text" class="form-control" list="localChargingDataList" id="chargingInput" name="charging">
                         <datalist id="localChargingDataList">
                           <option  v-for="local in local.$data" :value="local.id">
@@ -785,7 +766,7 @@
                         </datalist>
                       </div>
                       <div class="form-group">
-                        <label for="dischargingInput">Discharging</label>
+                        <label for="dischargingInput">Descarga</label>
                         <input type="text" class="form-control" list="localDischargingDataList" id="dischargingInput" name="discharging">
                         <datalist id="localDischargingDataList">
                           <option  v-for="local in local.$data" :value="local.id">
@@ -794,68 +775,68 @@
                         </datalist>
                       </div>
                       <div class="form-group">
-                        <label for="lotInput">Lot</label>
+                        <label for="lotInput">Lote</label>
                         <input type="text" class="form-control" id="lotInput" name="lot">
                       </div>
                       <div class="form-group">
-                        <label for="priceInput">Price</label>
+                        <label for="priceInput">Tarifa</label>
                         <input type="number" class="form-control" id="priceInput" name="price">
                       </div>
                       <div class="form-group">
-                        <label for="productInput">Product</label>
+                        <label for="productInput">Produto</label>
                         <select name="product" id="productInput">
-                          <option value="soy">soy</option>
-                          <option value="corn">corn</option>
-                          <option value="coton">coton</option>
-                          <option value="fertilizer">fertilizer</option>
-                          <option value="calcareous">calcareous</option>
-                          <option value="cotonseed">cotonseed</option>
+                          <option value="Soja">Soja</option>
+                          <option value="Milho">Milho</option>
+                          <option value="Algodão">Algodão</option>
+                          <option value="Fertilizante">Fertilizante</option>
+                          <option value="Calcareo">Calcareo</option>
+                          <option value="Caroço de Algodão">Caroço de Algodão</option>
                         </select>
                       </div>
                       <div class="form-group">
-                        <label for="formatInput">Format</label>
+                        <label for="formatInput">Formato</label>
                         <select name="format" id="formatInput">
-                          <option value="grain">grain</option>
-                          <option value="bag">bag</option>
+                          <option value="Granel">Granel</option>
+                          <option value="Ensacado">Ensacado</option>
                         </select>
                       </div>
                       <div class="form-group">
-                        <label for="availableInput">Available</label>
+                        <label for="availableInput">Disponivel</label>
                         <select name="available" id="availableInput">
                           <option value="1">true</option>
                           <option value="0">false</option>
                         </select>
                       </div>
                       <div class="form-group">
-                        <label for="startInput">Start</label>
+                        <label for="startInput">Começo</label>
                         <input type="date" name="start" id="startInput">
                       </div>
                       <div class="form-group">
-                        <label for="endInput">End</label>
+                        <label for="endInput">Fim</label>
                         <input type="date" name="end" id="endInput">
                       </div>
-                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#freightForm')">Save</button>
+                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#freightForm')">Salvar</button>
                   </form>
                 </div>
                 <div class="container table">
                     <div class="form-group m-4">
-                      <label for="freightFilterInput">Search</label>
+                      <label for="freightFilterInput">Procurar</label>
                       <input class="form-control w-25" type="text" id="freightFilterInput" @keyup="filterModel('freight', '#freightFilterInput')">
                     </div>
                     <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Charging</th>
-                            <th scope="col">Discharging</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Product</th>
-                            <th scope="col">Format</th>
-                            <th scope="col">Start</th>
-                            <th scope="col">End</th>
-                            <th scope="col">Lot</th>
-                            <th scope="col">Available</th>
-                            <th scope="col">Options</th>
+                            <th scope="col">Embarque</th>
+                            <th scope="col">Descarga</th>
+                            <th scope="col">Tarifa</th>
+                            <th scope="col">Produto</th>
+                            <th scope="col">Formato</th>
+                            <th scope="col">Começo</th>
+                            <th scope="col">Fim</th>
+                            <th scope="col">Lote</th>
+                            <th scope="col">Disponivel</th>
+                            <th scope="col">Opções</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -863,7 +844,7 @@
                             <th scope="row">{{ freight.id }}</th>
                             <td>{{ freight.chargingName }} {{ freight.chargingType }} - {{ freight.chargingCity }}</td>
                             <td>{{ freight.dischargingName }} {{ freight.dischargingType }}- {{ freight.dischargingCity }}</td>
-                            <td>{{ freight.price }}</td>
+                            <td>R$ {{ freight.price }},00</td>
                             <td>{{ freight.product }}</td>
                             <td>{{ freight.format }}</td>
                             <td>{{ freight.start }}</td>
@@ -877,10 +858,10 @@
                             <td>
                               <form :id="'freightUpdateForm'+freight.id" style="display: none;">
                                   <h5>
-                                      Update {{ freight.chargingName }} X {{ freight.dischargingName }}
+                                      Atualizar {{ freight.chargingName }} X {{ freight.dischargingName }}
                                   </h5>
                                   <div class="form-group">
-                                    <label for="chargingInput">Charging</label>
+                                    <label for="chargingInput">Embarque</label>
                                     <input type="text" class="form-control" list="localChargingDataList" id="chargingInput" name="charging" :value="freight.chargingId">
                                     <datalist id="localChargingDataList">
                                       <option  v-for="local in local.$data" :value="local.id">
@@ -889,7 +870,7 @@
                                     </datalist>
                                   </div>
                                   <div class="form-group">
-                                    <label for="dischargingInput">Discharging</label>
+                                    <label for="dischargingInput">Descarga</label>
                                     <input type="text" class="form-control" list="localDischargingDataList" id="dischargingInput" name="discharging" :value="freight.dischargingId">
                                     <datalist id="localDischargingDataList">
                                       <option  v-for="local in local.$data" :value="local.id">
@@ -898,35 +879,35 @@
                                     </datalist>
                                   </div>
                                   <div class="form-group">
-                                    <label for="lotInput">Lot</label>
+                                    <label for="lotInput">Lote</label>
                                     <input type="text" class="form-control" id="lotInput" name="lot" :value="freight.lot">
                                   </div>
                                   <div class="form-group">
-                                    <label for="priceInput">Price</label>
+                                    <label for="priceInput">Tarifa</label>
                                     <input type="number" class="form-control" id="priceInput" name="price" :value="freight.price">
                                   </div>
                                   <div class="form-group">
-                                    <label for="productInput">Product</label>
+                                    <label for="productInput">Produto</label>
                                     <select name="product" id="productInput">
                                       <option :value="freight.product">{{ freight.product }}</option>
-                                      <option value="soy">soy</option>
-                                      <option value="corn">corn</option>
-                                      <option value="coton">coton</option>
-                                      <option value="fertilizer">fertilizer</option>
-                                      <option value="calcareous">calcareous</option>
-                                      <option value="cotonseed">cotonseed</option>
+                                      <option value="Soja">Soja</option>
+                                      <option value="Milho">Milho</option>
+                                      <option value="Algodão">Algodão</option>
+                                      <option value="Fertilizante">Fertilizante</option>
+                                      <option value="Calcareo">Calcareo</option>
+                                      <option value="Caroço de Algodão">Caroço de Algodão</option>
                                     </select>
                                   </div>
                                   <div class="form-group">
-                                    <label for="formatInput">Format</label>
+                                    <label for="formatInput">Formato</label>
                                     <select name="format" id="formatInput">
                                       <option :value="freight.format">{{ freight.format }}</option>
-                                      <option value="grain">grain</option>
-                                      <option value="bag">bag</option>
+                                      <option value="Granel">Granel</option>
+                                      <option value="Ensacado">Ensacado</option>
                                     </select>
                                   </div>
                                   <div class="form-group">
-                                    <label for="availableInput">Available</label>
+                                    <label for="availableInput">Disponivel</label>
                                     <select name="available" id="availableInput">
                                       <option :value="freight.available">{{ freight.available }}</option>
                                       <option value="1">true</option>
@@ -934,14 +915,14 @@
                                     </select>
                                   </div>
                                   <div class="form-group">
-                                    <label for="startInput">Start</label>
+                                    <label for="startInput">Começo</label>
                                     <input type="date" name="start" id="startInput" :value="freight.start">
                                   </div>
                                   <div class="form-group">
-                                    <label for="endInput">End</label>
+                                    <label for="endInput">Fim</label>
                                     <input type="date" name="end" id="endInput" :value="freight.end">
                                   </div>
-                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#freightUpdateForm'+freight.id, freight.id);toggle('#freightUpdateForm'+freight.id, 200);">Update</button>
+                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#freightUpdateForm'+freight.id, freight.id);toggle('#freightUpdateForm'+freight.id, 200);">Atualizar</button>
                               </form>
                             </td>
                           </tr>
@@ -952,23 +933,23 @@
 
             <div class="container modules" id="travelContainer" style="display: none;">
               <h4>
-                Travel
+                Viagens
               </h4>
               <div class="nav">
                 <button class="btn btn-primary m-4" @click="fetchListData('travel');">
-                  Reload
+                  Recarregar
                 </button>
                 <button type="button" class="btn btn-primary m-4" onclick="$('#travelFormContainer').toggle(200)">
-                  New
+                  Novo
                 </button>
               </div>
                 <div class="container m-4 form" id="travelFormContainer" style="display: none;">
                   <h5>
-                    New travel
+                    Nova Viagem
                   </h5>
                   <form id="travelForm">
                       <div class="form-group">
-                        <label for="associationInput">Association</label>
+                        <label for="associationInput">Associação</label>
                         <input type="text" class="form-control" list="associationDataList" id="associationInput" name="associationId">
                         <datalist id="associationDataList">
                           <option  v-for="ass in association.$data" :value="ass.id">
@@ -977,16 +958,16 @@
                         </datalist>
                       </div>
                       <div class="form-group">
-                        <label for="freightInput">Freight</label>
+                        <label for="freightInput">Frete</label>
                         <input type="text" class="form-control" list="freightDataList" id="freightInput" name="freightId">
                         <datalist id="freightDataList">
                           <option  v-for="freight in freight.$data" :value="freight.id">
-                            {{ freight.chargingName }} {{ freight.chargingType }} - {{ freight.chargingCity }}
+                            {{ freight.chargingName }} {{ freight.chargingType }} - {{ freight.chargingCity }} to {{ freight.dischargingName }} {{ freight.dischargingType }} - {{ freight.dischargingCity }}
                           </option>
                         </datalist>
                       </div>
                       <div class="form-group">
-                        <label for="weightInput">Weight</label>
+                        <label for="weightInput">Peso da Carga</label>
                         <input type="number" class="form-control" id="weightInput" name="weight" value="50">
                       </div>
                       <div class="form-group">
@@ -994,10 +975,10 @@
                           <input type="text" class="form-control" id="statusInput" name="status" value="created">
                         </div>
                       <div class="form-group">
-                        <label for="dateInput">Date</label>
+                        <label for="dateInput">Data</label>
                         <input type="date" name="date" id="dateInput">
                       </div>
-                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#travelForm')">Save</button>
+                      <button type="button" class="btn btn-primary mt-4" @click="submitData('#travelForm')">Salvar</button>
                   </form>
                 </div>
                 <div class="container table">
@@ -1009,14 +990,14 @@
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Freight Id</th>
-                            <th scope="col">Association Id</th>
-                            <th scope="col">Plate</th>
-                            <th scope="col">Driver Name</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Weight</th>
+                            <th scope="col">Id Frete</th>
+                            <th scope="col">Id Associação</th>
+                            <th scope="col">Placa</th>
+                            <th scope="col">Motorista</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Peso</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Options</th>
+                            <th scope="col">Opções</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -1030,46 +1011,7 @@
                             <td>{{ travel.weight }}</td>
                             <td>{{ travel.status }}</td>
                             <td>
-                              <button class="btn btn-primary btn-sm" @click="toggle('#travelUpdateForm'+travel.id, 200);"><i class="bi bi-pencil-fill"></i></button>
                               <button class="btn btn-danger btn-sm" @click="deleteObject('travel',travel.id)"><i class="bi bi-trash-fill"></i></button>
-                            </td>
-                            <td>
-                              <form :id="'travelUpdateForm'+travel.id" style="display: none;">
-                                  <h5>
-                                      Update {{ travel.association }} X {{ travel.freight }}
-                                  </h5>
-                                  <div class="form-group">
-                                      <label for="associationInput">Association</label>
-                                      <input type="text" class="form-control" list="associationDataList" id="associationInput" name="associationId" :value="travel.associationId">
-                                      <datalist id="associationDataList">
-                                        <option  v-for="ass in association.$data" :value="ass.id">
-                                          {{ ass.truck.plate }} - {{ ass.driver.name }}
-                                        </option>
-                                      </datalist>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="freightInput">Freight</label>
-                                      <input type="text" class="form-control" list="freightDataList" id="freightInput" name="freightId" :value="travel.freightId">
-                                      <datalist id="freightDataList">
-                                        <option  v-for="freight in freight.$data" :value="freight.id">
-                                          {{ freight.chargingName }} {{ freight.chargingType }} - {{ freight.chargingCity }}
-                                        </option>
-                                      </datalist>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="weightInput">Weight</label>
-                                      <input type="number" class="form-control" id="weightInput" name="weight" :value="travel.weight">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="statusInput">Status</label>
-                                        <input type="text" class="form-control" id="statusInput" name="status" :value="travel.status">
-                                      </div>
-                                    <div class="form-group">
-                                      <label for="dateInput">Date</label>
-                                      <input type="date" name="date" id="dateInput" :value="travel.date">
-                                    </div>
-                                <button type="button" class="btn btn-primary mt-4" @click="updateData('#travelUpdateForm'+travel.id, travel.id);toggle('#travelUpdateForm'+travel.id, 200);">Update</button>
-                              </form>
                             </td>
                           </tr>
                         </tbody>
@@ -1079,32 +1021,32 @@
 
             <div class="container modules" id="paymentContainer" style="display: none;">
               <h4>
-                Payment
+                Pagamento
               </h4>
               <div class="nav">
                 <button class="btn btn-primary m-4" @click="fetchListData('payment');">
-                  Reload
+                  Recarregar
                 </button>
               </div>
                 <div class="container table">
                     <div class="form-group m-4">
-                      <label for="paymentFilterInput">Search</label>
+                      <label for="paymentFilterInput">Procurar</label>
                       <input class="form-control w-25" type="text" id="paymentFilterInput" @keyup="filterModel('payment', '#paymentFilterInput')">
                     </div>
                     <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Truck</th>
-                            <th scope="col">Payer</th>
-                            <th scope="col">Reference </th>
-                            <th scope="col">Expire Date</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Value</th>
-                            <th scope="col">Format</th>
+                            <th scope="col">Caminhão</th>
+                            <th scope="col">Pagador</th>
+                            <th scope="col">Referencia</th>
+                            <th scope="col">Vencimento</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Formato</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Expired</th>
-                            <th scope="col">Options</th>
+                            <th scope="col">Status Vencimento</th>
+                            <th scope="col">Opções</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -1120,14 +1062,14 @@
                             <td>{{ payment.status }}</td>
                             <td>
                               <template v-if="payment.status === 'payed'">
-                                <span style="color: green;">Payed</span>
+                                <span style="color: green;">pago</span>
                               </template>
                               <template v-else>
                                 <template v-if="new Date(payment.expire) >= new Date()">
-                                  <span style="color: green;">Runing</span>
+                                  <span style="color: blue;">correndo</span>
                                 </template>
                                 <template v-else>
-                                  <span style="color: red;">EXPIRED</span>
+                                  <span style="color: red;">VENCIDO</span>
                                 </template>
                               </template>
                             </td>
@@ -1138,33 +1080,33 @@
                             <td v-if="payment.status !== 'payed'">
                               <form :id="'paymentUpdateForm'+payment.id" style="display: none;">
                                   <h5>
-                                      Pay {{ payment.truck.plate }} {{ payment.id }}
+                                      Pagar {{ payment.truck.plate }} {{ payment.id }}
                                   </h5>
                                   <div class="form-group">
                                     <div class="form-group">
-                                      <label for="payerInput">Payer</label>
+                                      <label for="payerInput">Pagador</label>
                                       <input type="text" class="form-control" id="payerInput" name="payer" :value="payment.payer">
                                     </div>
                                     <div class="form-group">
-                                      <label for="valueInput">Value</label>
+                                      <label for="valueInput">Valor</label>
                                       <input type="number" class="form-control" id="valueInput" name="value" value="150">
                                     </div>
                                     <div class="form-group">
-                                      <label for="formatInput">Format</label><br>
+                                      <label for="formatInput">Formato</label><br>
                                       <select name="format" id="formatInput">
-                                          <option value="cash">Cash</option>
-                                          <option value="check">Check</option>
-                                          <option value="bank transfer">Bank Transfer</option>
-                                          <option value="pix">Pix</option>
+                                          <option value="Dinheiro">Dinheiro</option>
+                                          <option value="Cheque">Cheque</option>
+                                          <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                                          <option value="Pix">Pix</option>
                                       </select>
                                     </div>
                                     <div class="form-group">
-                                      <label for="dateInput">Date</label>
-                                      <input type="date" name="date" id="dateInput" :value="payment.date">
+                                      <label for="dateInput">Data</label>
+                                      <input type="date" name="date" id="dateInput">
                                     </div>
                                     <input type="hidden" name="status" :value="payment.truckId">
                                     <input type="hidden" name="status" value="payed">
-                                <button type="button" class="btn btn-success mt-4" @click="pay(payment.id);toggle('#paymentUpdateForm'+payment.id, 200);">Pay</button>
+                                <button type="button" class="btn btn-success mt-4" @click="pay(payment.id);toggle('#paymentUpdateForm'+payment.id, 200);">Pagar</button>
                               </form>
                             </td>
                           </tr>
@@ -1175,32 +1117,32 @@
 
             <div class="container modules" id="userContainer" style="display: none;" v-if="currentUser.$.superUser">
               <h4>
-                User
+                Usuarios
               </h4>
               <div class="nav">
                 <button class="btn btn-primary m-4" @click="fetchListData('user');">
-                  Reload
+                  Recarregar
                 </button>
                 <button type="button" class="btn btn-primary m-4" onclick="$('#userFormContainer').toggle(200)">
-                  New
+                  Novo
                 </button>
               </div>
                 <div class="container m-4 form" id="userFormContainer" style="display: none;">
                   <h5>
-                    New user
+                    Novo Usuario
                   </h5>
                   <form id="userForm">
                       <div class="form-group">
-                        <label for="nameInput">Name</label>
+                        <label for="nameInput">Nome</label>
                         <input type="text" class="form-control" id="nameInput" name="name">
                       </div>
                       <div class="form-group">
-                        <label for="passwordInput">Password</label>
+                        <label for="passwordInput">Senha</label>
                         <input type="text" class="form-control" id="passwordInput" name="password">
                       </div>
                       <div class="form-check">
                         <label class="form-check-label" for="superUserInput">
-                          SuperUser
+                          Super Usuario
                         </label>
                         <select class="form-control" name="superUser" id="superUserInput">
                           <option value="0" selected>Não</option>
@@ -1212,17 +1154,17 @@
                 </div>
                 <div class="container table">
                     <div class="form-group m-4">
-                      <label for="userFilterInput">Search</label>
+                      <label for="userFilterInput">Procurar</label>
                       <input class="form-control w-25" type="text" id="userFilterInput" @keyup="filterModel('user', '#userFilterInput')">
                     </div>
                     <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">SuperUser</th>
-                            <th scope="col">Options</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Senha</th>
+                            <th scope="col">Super Usuario</th>
+                            <th scope="col">Opções</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -1239,24 +1181,27 @@
                               <td>
                                 <form :id="'userUpdateForm'+user.id" style="display: none;">
                                     <h5>
-                                        Update {{ user.name }}
+                                        Atualizar {{ user.name }}
                                     </h5>
                                     <div class="form-group">
-                                        <label for="nameInput">Name</label>
+                                        <label for="nameInput">Nome</label>
                                         <input type="text" class="form-control" id="nameInput" name="name" :value="user.name">
                                       </div>
                                       <div class="form-group">
-                                        <label for="passwordInput">Password</label>
+                                        <label for="passwordInput">Senha</label>
                                         <input type="text" class="form-control" id="passwordInput" name="password" :value="user.password">
                                       </div>
                                       <div class="form-check">
+                                        <label class="form-check-label" for="superUserInput">
+                                          Super Usuario
+                                        </label>
                                         <select class="form-control" name="superUser" id="superUserInput">
                                           <option v-if="user.superUser" value="1" selected>Sim</option>
                                           <option value="0">Não</option>
                                           <option value="1">Sim</option>
                                         </select>
                                       </div>
-                                  <button type="button" class="btn btn-primary mt-4" @click="updateData('#userUpdateForm'+user.id, user.id);toggle('#userUpdateForm'+user.id, 200);">Update</button>
+                                  <button type="button" class="btn btn-primary mt-4" @click="updateData('#userUpdateForm'+user.id, user.id);toggle('#userUpdateForm'+user.id, 200);">Atualizar</button>
                                 </form>
                               </td>
                             </template>
