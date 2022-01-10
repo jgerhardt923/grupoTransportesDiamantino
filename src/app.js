@@ -12,12 +12,6 @@ const router = require("./routes");
 
 const app = express()
 
-//error handlling
-app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-});
-
 //midllewares
 app.use(
     express.static(config.app.staticDir),
@@ -32,5 +26,11 @@ app.use(
 app.use(
     router
 );
+
+//error handlling
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
 
 module.exports = app;
