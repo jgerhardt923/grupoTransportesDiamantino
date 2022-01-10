@@ -1,12 +1,10 @@
 const MAIN_MODEL = require("../model/"+__filename.split(/[\\/]/).pop())
 
-const shippingCompanyModel = require("../model/shippingCompany");
-
 module.exports = {
     get: async function(req, res){
         try{
             if(req.params.mode === "list"){
-                let data = await MAIN_MODEL.findAll({include:shippingCompanyModel});
+                let data = await MAIN_MODEL.findAll();
                 await res.send({data:data, succeess:true})
             }else{
                 let data = await MAIN_MODEL.findOne({where:{id:req.params.id}});
