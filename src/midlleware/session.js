@@ -3,25 +3,21 @@ const session = require("../model/session");
 const user = require("../model/user");
 
 module.exports = async(req, res, next)=>{
-    if(req.cookies.sessionId){
-        let sess = await session.findOne({where:{id:req.cookies.sessionId}})
-        if(sess !== null | undefined){
-            if(Date.now() >= sess.expire){
-                
-                next();
-            }else{
+    if(req.path == "/login"){
+        next();
+    }else{
+        try{
+            let sess = await session.findOne({where:{id:req.cookies.sessionId}});
+            if(Date.now() < sess.expire){
                 let usr = await user.findOne({where:{id:sess.userId}})
                 req.user = await usr
                 await next()
+            }else{
+                throw "session expired";
             }
-        }else{
+        }catch (err){
+            console.log("error => "+err);
             res.redirect("/login");
-        }
-    }else{
-        if(req.path === "/login"){
-            next();
-        }else{
-            res.redirect("/login")
         }
     }
 };
