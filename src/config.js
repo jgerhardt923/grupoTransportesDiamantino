@@ -4,6 +4,7 @@ const path = require("path")
 
 module.exports = {
     dataBase:{
+        dataBaseUrl: process.env.DATABASE_URL,
         dialect: process.env.DATA_BASE || "postgres",
         name: process.env.DB_NAME || "grupoTransportesDiamantino",
         user: process.env.DB_USER || "postgres",
@@ -22,5 +23,7 @@ module.exports = {
     server:{
         host: process.env.HOST || "localhost",
         port: process.env.PORT || 5000
-    }
+    },
+    debug:true,
+    deployPlatform: "heroku"
 }

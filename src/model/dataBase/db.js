@@ -1,9 +1,8 @@
 const Sequelize = require("sequelize");
 const config = require("../../config")
 
-require("dotenv").config()
-
-sequelize = new Sequelize(process.env.DATABASE_URL, {
+if(config.debug && config.deployPlatform != "heroku"){
+  const sequelize = new Sequelize(config.dataBase.dataBaseUrl, {
     dialectOptions: {
       ssl: {
         require: true,
@@ -12,7 +11,6 @@ sequelize = new Sequelize(process.env.DATABASE_URL, {
     }
   }
 );
-
 sequelize
   .authenticate()
   .then(() => {
@@ -22,8 +20,9 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-
-/*const sequelize = new Sequelize(
+  module.exports = sequelize;
+}else{
+  const sequelize = new Sequelize(
     config.dataBase.name,
     config.dataBase.user,
     config.dataBase.password,
@@ -32,6 +31,7 @@ sequelize
         host:config.dataBase.host,
         logging:false,
     }
-);*/
+  );
 
-module.exports = sequelize;
+  module.exports = sequelize;
+}
