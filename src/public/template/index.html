@@ -49,23 +49,23 @@
                   <form id="shippingcompanyForm">
                     <div class="form-group">
                       <label for="nameInput">Nome</label>
-                      <input type="text" class="form-control" id="nameInput" name="name">
+                      <input type="text" class="form-control w-50" id="nameInput" name="name">
                     </div>
                     <div class="form-group">
                       <label for="cnpjInput">CNPJ</label>
-                      <input type="text" class="form-control" id="cnpjInput" name="cnpj">
+                      <input type="text" class="form-control w-25" id="cnpjInput" name="cnpj" maxlength="14" minlength="14">
                     </div>
                     <div class="form-group">
                       <label for="adminNameInput">Nome Admin</label>
-                      <input type="text" class="form-control" id="adminNameInput" name="adminName">
+                      <input type="text" class="form-control w-25" id="adminNameInput" name="adminName">
                     </div>
                     <div class="form-group">
                       <label for="adminCpfInput">CPF Admin</label>
-                      <input type="text" class="form-control" id="adminCpfInput" name="adminCpf">
+                      <input type="text" class="form-control w-25" id="adminCpfInput" name="adminCpf" maxlength="11" minlength="11">
                     </div>
                     <div class="form-group">
                       <label for="adminPasswordInput">Senha Admin</label>
-                      <input type="text" class="form-control" id="adminPasswordInput" name="adminPassword">
+                      <input type="text" class="form-control w-25" id="adminPasswordInput" name="adminPassword" maxlength="6" minlength="6">
                     </div>
                     <button type="button" class="btn btn-primary mt-4" @click="submitData('#shippingcompanyForm')">Salvar</button>
                   </form>
@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="cnpjInput">CNPJ</label>
-                                  <input type="text" class="form-control" id="cnpjInput" name="cnpj" :value="sc.cnpj">
+                                  <input type="text" class="form-control" id="cnpjInput" name="cnpj" :value="sc.cnpj" maxlength="14" minlength="14">
                                 </div>
                                 <div class="form-group">
                                   <label for="adminNameInput">Nome Admin</label>
@@ -118,11 +118,11 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="adminCpfInput">CPF Admin</label>
-                                  <input type="text" class="form-control" id="adminCpfInput" name="adminCpf" :value="sc.adminCpf">
+                                  <input type="text" class="form-control" id="adminCpfInput" name="adminCpf" :value="sc.adminCpf" maxlength="11" minlength="11">
                                 </div>
                                 <div class="form-group">
                                   <label for="adminPasswordInput">Senha Admin</label>
-                                  <input type="text" class="form-control" id="adminPasswordInput" name="adminPassword" :value="sc.adminPassword">
+                                  <input type="text" class="form-control" id="adminPasswordInput" name="adminPassword" :value="sc.adminPassword" maxlength="6" minlength="6">
                                 </div>
                                 <button type="button" class="btn btn-primary mt-4" @click="updateData('#shippingcompanyUpdateForm'+sc.id, sc.id);toggle('#shippingcompanyUpdateForm'+sc.id, 200);">Atualizar</button>
                               </form>
@@ -154,7 +154,7 @@
                       <label for="shippingCompanyInput">Transportadora</label>
                       <input 
                         type="text" 
-                        class="form-control" 
+                        class="form-control w-50" 
                         id="shippingCompanyInput" 
                         name="shippingCompanyId" 
                         list="shippingCompanyDataList">
@@ -166,23 +166,23 @@
                     </div>
                     <div class="form-group">
                       <label for="plateInput">Placa Trator</label>
-                      <input type="text" class="form-control" id="plateInput" name="plate">
+                      <input type="text" class="form-control w-25" id="plateInput" name="plate" maxlength="7" minlength="7">
                     </div>
                     <div class="form-group">
                       <label for="plate1Input">Placa 2</label>
-                      <input type="text" class="form-control" id="plate1Input" name="plate1">
+                      <input type="text" class="form-control w-25" id="plate1Input" name="plate1" maxlength="7" minlength="7">
                     </div>
                     <div class="form-group">
                       <label for="plate2Input">Placa 3</label>
-                      <input type="text" class="form-control" id="plate2Input" name="plate2">
+                      <input type="text" class="form-control w-25" id="plate2Input" name="plate2" maxlength="7" minlength="7">
                     </div>
                     <div class="form-group">
                       <label for="plate3Input">Placa 4</label>
-                      <input type="text" class="form-control" id="plate3Input" name="plate3">
+                      <input type="text" class="form-control w-25" id="plate3Input" name="plate3" maxlength="7" minlength="7">
                     </div>
                     <div class="form-group">
                       <label for="axesInput">Eixos</label>
-                      <select class="form-control" id="axesInput" name="axes">
+                      <select class="form-control w-25" id="axesInput" name="axes">
                         <option value="5">5</option>
                         <option value="6">6</option>
                         <option value="7">7</option>
@@ -192,7 +192,7 @@
                     </div>
                     <div class="form-group">
                       <label for="capacityInput">Capacidade</label>
-                      <select class="form-control" id="capacityInput" name="capacity">
+                      <select class="form-control w-25" id="capacityInput" name="capacity">
                         <option value="32">32 tn</option>
                         <option value="36">36 tn</option>
                         <option value="37">37 tn</option>
@@ -266,19 +266,19 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="plateInput">Placa Trator</label>
-                                  <input type="text" class="form-control" id="plateInput" name="plate" :value="truck.plate">
+                                  <input type="text" class="form-control" id="plateInput" name="plate" :value="truck.plate" maxlength="7" minlength="7">
                                 </div>
                                 <div class="form-group">
                                   <label for="plate1Input">Placa 2</label>
-                                  <input type="text" class="form-control" id="plate1Input" name="plate1" :value="truck.plate1">
+                                  <input type="text" class="form-control" id="plate1Input" name="plate1" :value="truck.plate1" maxlength="7" minlength="7">
                                 </div>
                                 <div class="form-group">
                                   <label for="plate2Input">Placa 3</label>
-                                  <input type="text" class="form-control" id="plate2Input" name="plate2" :value="truck.plate2">
+                                  <input type="text" class="form-control" id="plate2Input" name="plate2" :value="truck.plate2" maxlength="7" minlength="7">
                                 </div>
                                 <div class="form-group">
                                   <label for="plate3Input">Placa 4</label>
-                                  <input type="text" class="form-control" id="plate3Input" name="plate3" :value="truck.plate3">
+                                  <input type="text" class="form-control" id="plate3Input" name="plate3" :value="truck.plate3" maxlength="7" minlength="7">
                                 </div>
                                 <div class="form-group">
                                   <label for="axesInput">Eixos</label>
@@ -337,23 +337,23 @@
                   <form id="driverForm">
                       <div class="form-group">
                           <label for="nameInput">Nome</label>
-                          <input type="text" class="form-control" id="nameInput" name="name">
+                          <input type="text" class="form-control w-50" id="nameInput" name="name">
                       </div>
                       <div class="form-group">
                           <label for="cpfInput">CPF</label>
-                          <input type="text" class="form-control" id="cpfInput" name="cpf">
+                          <input type="text" class="form-control w-25" id="cpfInput" name="cpf" maxlength="11" minlength="11">
                       </div>
                       <div class="form-group">
                           <label for="phoneInput">Telefone</label>
-                          <input type="text" class="form-control" id="phoneInput" name="phone">
+                          <input type="text" class="form-control w-25" id="phoneInput" name="phone">
                       </div>
                       <div class="form-group">
                           <label for="emailInput">Email</label>
-                          <input type="email" class="form-control" id="emailInput" name="email">
+                          <input type="email" class="form-control w-50" id="emailInput" name="email">
                       </div>
                       <div class="form-group">
                           <label for="passwordInput">Senha</label>
-                          <input type="text" class="form-control" id="passwordInput" name="password">
+                          <input type="text" class="form-control w-25" id="passwordInput" name="password" maxlength="6" minlength="6">
                       </div>
                       <button type="button" class="btn btn-primary mt-4" @click="submitData('#driverForm')">Save</button>
                   </form>
@@ -398,7 +398,7 @@
                                   </div>
                                   <div class="form-group">
                                       <label for="cpfInput">CPF</label>
-                                      <input type="text" class="form-control" id="cpfInput" name="cpf" :value="driver.cpf">
+                                      <input type="text" class="form-control" id="cpfInput" name="cpf" :value="driver.cpf" maxlength="11" minlength="11">
                                   </div>
                                   <div class="form-group">
                                       <label for="phoneInput">Telefone</label>
@@ -410,7 +410,7 @@
                                   </div>
                                   <div class="form-group">
                                       <label for="passwordInput">Senha</label>
-                                      <input type="text" class="form-control" id="passwordInput" name="password" :value="driver.password">
+                                      <input type="text" class="form-control" id="passwordInput" name="password" :value="driver.password" maxlength="6" minlength="6">
                                   </div>
                                   <button type="button" class="btn btn-primary mt-4" @click="updateData('#driverUpdateForm'+driver.id, driver.id);toggle('#driverUpdateForm'+driver.id, 200);">Atualizar</button>
                               </form>
@@ -440,7 +440,7 @@
                   <form id="localForm">
                       <div class="form-group">
                         <label for="typeInput">Tipo</label>
-                        <select class="form-control" name="type" id="typeInput">
+                        <select class="form-control w-25" name="type" id="typeInput">
                           <option value="Armazem">Armazem</option>
                           <option value="Fazenda">Fazenda</option>
                           <option value="Terminal ferroviario">Terminal Ferroviario</option>
@@ -450,15 +450,15 @@
                       </div>
                       <div class="form-group">
                           <label for="nameInput">Nome</label>
-                          <input type="text" class="form-control" id="nameInput" name="name">
+                          <input type="text" class="form-control w-25" id="nameInput" name="name">
                       </div>
                       <div class="form-group">
                           <label for="cityInput">Cidade</label>
-                          <input type="text" class="form-control" id="cityInput" name="city">
+                          <input type="text" class="form-control w-25" id="cityInput" name="city">
                       </div>
                       <div class="form-group">
                         <label for="stateInput">Estado</label>
-                        <select class="form-control" name="state" id="stateInput">
+                        <select class="form-control w-25" name="state" id="stateInput">
                           <option value="AC">Acre</option>
                           <option value="AL">Alagoas</option>
                           <option value="AP">Amapá</option>
@@ -491,15 +491,15 @@
                       </div>
                       <div class="form-group">
                           <label for="phoneInput">Telefone</label>
-                          <input type="text" class="form-control" id="phoneInput" name="phone">
+                          <input type="text" class="form-control w-25" id="phoneInput" name="phone">
                       </div>
                       <div class="form-group">
                           <label for="emailInput">Email</label>
-                          <input type="email" class="form-control" id="emailInput" name="email">
+                          <input type="email" class="form-control w-50" id="emailInput" name="email">
                       </div>
                       <div class="form-group">
                           <label for="addressInput">Endereço</label>
-                          <input type="text" class="form-control" id="addressInput" name="address">
+                          <input type="text" class="form-control w-50" id="addressInput" name="address">
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="balance25mtInput" name="balance25mt">
@@ -653,7 +653,7 @@
                   <form id="associationForm">
                       <div class="form-group">
                         <label for="truckInput">Caminhão</label>
-                        <input type="text" class="form-control" list="truckDataList" id="truckInput" name="truckId">
+                        <input type="text" class="form-control w-25" list="truckDataList" id="truckInput" name="truckId">
                         <datalist id="truckDataList">
                           <option  v-for="truck in truck.$data" :value="truck.id">
                             {{ truck.plate }}
@@ -662,7 +662,7 @@
                       </div>
                       <div class="form-group">
                         <label for="driverInput">Motorista</label>
-                        <input type="text" class="form-control" list="driverDataList" id="driverInput" name="driverId">
+                        <input type="text" class="form-control w-25" list="driverDataList" id="driverInput" name="driverId">
                         <datalist id="driverDataList">
                           <option  v-for="driver in driver.$data" :value="driver.id">
                             {{ driver.name }} - {{ driver.cpf }}
@@ -758,7 +758,7 @@
                   <form id="freightForm">
                       <div class="form-group">
                         <label for="chargingInput">Embarque</label>
-                        <input type="text" class="form-control" list="localChargingDataList" id="chargingInput" name="charging">
+                        <input type="text" class="form-control w-25" list="localChargingDataList" id="chargingInput" name="charging">
                         <datalist id="localChargingDataList">
                           <option  v-for="local in local.$data" :value="local.id">
                             {{ local.name }} - {{ local.city }}
@@ -767,7 +767,7 @@
                       </div>
                       <div class="form-group">
                         <label for="dischargingInput">Descarga</label>
-                        <input type="text" class="form-control" list="localDischargingDataList" id="dischargingInput" name="discharging">
+                        <input type="text" class="form-control w-25" list="localDischargingDataList" id="dischargingInput" name="discharging">
                         <datalist id="localDischargingDataList">
                           <option  v-for="local in local.$data" :value="local.id">
                             {{ local.name }} - {{ local.city }}
@@ -776,15 +776,15 @@
                       </div>
                       <div class="form-group">
                         <label for="lotInput">Lote</label>
-                        <input type="text" class="form-control" id="lotInput" name="lot">
+                        <input type="text" class="form-control w-25" id="lotInput" name="lot">
                       </div>
                       <div class="form-group">
                         <label for="priceInput">Tarifa</label>
-                        <input type="number" class="form-control" id="priceInput" name="price">
+                        <input type="number" class="form-control w-25" id="priceInput" name="price">
                       </div>
                       <div class="form-group">
                         <label for="productInput">Produto</label>
-                        <select name="product" id="productInput">
+                        <select class="form-control w-25" name="product" id="productInput">
                           <option value="Soja">Soja</option>
                           <option value="Milho">Milho</option>
                           <option value="Algodão">Algodão</option>
@@ -795,25 +795,25 @@
                       </div>
                       <div class="form-group">
                         <label for="formatInput">Formato</label>
-                        <select name="format" id="formatInput">
+                        <select class="form-control w-25" name="format" id="formatInput">
                           <option value="Granel">Granel</option>
                           <option value="Ensacado">Ensacado</option>
                         </select>
                       </div>
                       <div class="form-group">
                         <label for="availableInput">Disponivel</label>
-                        <select name="available" id="availableInput">
+                        <select class="form-control w-25" name="available" id="availableInput">
                           <option value="1">true</option>
                           <option value="0">false</option>
                         </select>
                       </div>
                       <div class="form-group">
                         <label for="startInput">Começo</label>
-                        <input type="date" name="start" id="startInput">
+                        <input class="form-control w-25" type="date" name="start" id="startInput">
                       </div>
                       <div class="form-group">
                         <label for="endInput">Fim</label>
-                        <input type="date" name="end" id="endInput">
+                        <input class="form-control w-25" type="date" name="end" id="endInput">
                       </div>
                       <button type="button" class="btn btn-primary mt-4" @click="submitData('#freightForm')">Salvar</button>
                   </form>
@@ -888,7 +888,7 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="productInput">Produto</label>
-                                    <select name="product" id="productInput">
+                                    <select class="form-control" name="product" id="productInput">
                                       <option :value="freight.product">{{ freight.product }}</option>
                                       <option value="Soja">Soja</option>
                                       <option value="Milho">Milho</option>
@@ -900,7 +900,7 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="formatInput">Formato</label>
-                                    <select name="format" id="formatInput">
+                                    <select class="form-control" name="format" id="formatInput">
                                       <option :value="freight.format">{{ freight.format }}</option>
                                       <option value="Granel">Granel</option>
                                       <option value="Ensacado">Ensacado</option>
@@ -908,7 +908,7 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="availableInput">Disponivel</label>
-                                    <select name="available" id="availableInput">
+                                    <select class="form-control" name="available" id="availableInput">
                                       <option :value="freight.available">{{ freight.available }}</option>
                                       <option value="1">true</option>
                                       <option value="0">false</option>
@@ -916,11 +916,11 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="startInput">Começo</label>
-                                    <input type="date" name="start" id="startInput" :value="freight.start">
+                                    <input class="form-control" type="date" name="start" id="startInput" :value="freight.start">
                                   </div>
                                   <div class="form-group">
                                     <label for="endInput">Fim</label>
-                                    <input type="date" name="end" id="endInput" :value="freight.end">
+                                    <input class="form-control" type="date" name="end" id="endInput" :value="freight.end">
                                   </div>
                                 <button type="button" class="btn btn-primary mt-4" @click="updateData('#freightUpdateForm'+freight.id, freight.id);toggle('#freightUpdateForm'+freight.id, 200);">Atualizar</button>
                               </form>
@@ -950,7 +950,7 @@
                   <form id="travelForm">
                       <div class="form-group">
                         <label for="associationInput">Associação</label>
-                        <input type="text" class="form-control" list="associationDataList" id="associationInput" name="associationId">
+                        <input type="text" class="form-control w-25" list="associationDataList" id="associationInput" name="associationId">
                         <datalist id="associationDataList">
                           <option  v-for="ass in association.$data" :value="ass.id">
                             {{ ass.truck.plate }} - {{ ass.driver.name }}
@@ -959,7 +959,7 @@
                       </div>
                       <div class="form-group">
                         <label for="freightInput">Frete</label>
-                        <input type="text" class="form-control" list="freightDataList" id="freightInput" name="freightId">
+                        <input type="text" class="form-control w-25" list="freightDataList" id="freightInput" name="freightId">
                         <datalist id="freightDataList">
                           <option  v-for="freight in freight.$data" :value="freight.id">
                             {{ freight.chargingName }} {{ freight.chargingType }} - {{ freight.chargingCity }} to {{ freight.dischargingName }} {{ freight.dischargingType }} - {{ freight.dischargingCity }}
@@ -968,15 +968,15 @@
                       </div>
                       <div class="form-group">
                         <label for="weightInput">Peso da Carga</label>
-                        <input type="number" class="form-control" id="weightInput" name="weight" value="50">
+                        <input type="number" class="form-control w-25" id="weightInput" name="weight" value="50">
                       </div>
                       <div class="form-group">
                           <label for="statusInput">Status</label>
-                          <input type="text" class="form-control" id="statusInput" name="status" value="created">
+                          <input type="text" class="form-control w-25" id="statusInput" name="status" value="created">
                         </div>
                       <div class="form-group">
                         <label for="dateInput">Data</label>
-                        <input type="date" name="date" id="dateInput">
+                        <input class="form-control w-25" type="date" name="date" id="dateInput">
                       </div>
                       <button type="button" class="btn btn-primary mt-4" @click="submitData('#travelForm')">Salvar</button>
                   </form>
@@ -1093,7 +1093,7 @@
                                     </div>
                                     <div class="form-group">
                                       <label for="formatInput">Formato</label><br>
-                                      <select name="format" id="formatInput">
+                                      <select class="form-control" name="format" id="formatInput">
                                           <option value="Dinheiro">Dinheiro</option>
                                           <option value="Cheque">Cheque</option>
                                           <option value="Transferencia Bancaria">Transferencia Bancaria</option>
@@ -1102,7 +1102,7 @@
                                     </div>
                                     <div class="form-group">
                                       <label for="dateInput">Data</label>
-                                      <input type="date" name="date" id="dateInput">
+                                      <input class="form-control" type="date" name="date" id="dateInput">
                                     </div>
                                     <input type="hidden" name="status" :value="payment.truckId">
                                     <input type="hidden" name="status" value="payed">
@@ -1134,17 +1134,15 @@
                   <form id="userForm">
                       <div class="form-group">
                         <label for="nameInput">Nome</label>
-                        <input type="text" class="form-control" id="nameInput" name="name">
+                        <input type="text" class="form-control w-25" id="nameInput" name="name">
                       </div>
                       <div class="form-group">
                         <label for="passwordInput">Senha</label>
-                        <input type="text" class="form-control" id="passwordInput" name="password">
+                        <input type="text" class="form-control w-25" id="passwordInput" name="password">
                       </div>
-                      <div class="form-check">
-                        <label class="form-check-label" for="superUserInput">
-                          Super Usuario
-                        </label>
-                        <select class="form-control" name="superUser" id="superUserInput">
+                      <div class="form-group">
+                        <label for="superUserInput">Super Usuario</label>
+                        <select class="form-control w-25" name="superUser" id="superUserInput">
                           <option value="0" selected>Não</option>
                           <option value="1">Sim</option>
                         </select>
@@ -1191,10 +1189,8 @@
                                         <label for="passwordInput">Senha</label>
                                         <input type="text" class="form-control" id="passwordInput" name="password" :value="user.password">
                                       </div>
-                                      <div class="form-check">
-                                        <label class="form-check-label" for="superUserInput">
-                                          Super Usuario
-                                        </label>
+                                      <div class="form-group">
+                                        <label for="superUserInput">Super Usuario</label>
                                         <select class="form-control" name="superUser" id="superUserInput">
                                           <option v-if="user.superUser" value="1" selected>Sim</option>
                                           <option value="0">Não</option>

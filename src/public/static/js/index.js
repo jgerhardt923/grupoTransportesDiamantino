@@ -133,7 +133,10 @@ var app = new Vue(
                     url: url,
                     method:"POST",
                     data:getFormData($form)
-                }).done(data=>{alert("Created!");this.fetchListData(model)})
+                }).done(data=>{
+                    alert("Created!");
+                    document.querySelector(form).style.display="none";
+                    this.fetchListData(model)})
             },
             updateData:function(form, id){
                 let $form = $(form);
