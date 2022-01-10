@@ -1,7 +1,8 @@
 const Sequelize = require("sequelize");
 const config = require("../../config")
 
-if(!config.debug & config.deployPlatform == "heroku"){
+if(config.debug == false & config.deployPlatform == "heroku"){
+  console.log("dataBaseUrl => "+config.dataBase.dataBaseUrl)
   const sequelize = new Sequelize(config.dataBase.dataBaseUrl, {
     dialectOptions: {
       ssl: {
