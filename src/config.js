@@ -24,6 +24,6 @@ module.exports = {
         host: process.env.HOST || "localhost",
         port: process.env.PORT || 5000
     },
-    debug:true,
+    debug: process.env.DEBUG || true,
     deployPlatform: "heroku"
 }
