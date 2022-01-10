@@ -48,6 +48,18 @@ module.exports = {
     delete: async function(req, res){
         let obj = await MAIN_MODEL.findOne({where:{id:req.params.id}})
         await obj.update({status:"canceled"})
+        .then(obj=>{
+            MAIN_MODEL.create({
+                truckId: obj.dataValues.truckId,
+                value: 150,
+                Date: null,
+                expire: obj.dataValues.expire,
+                reference: obj.dataValues.reference,
+                payer: req.body.payer,
+                format: null,
+                status: "pending"
+            })
+        })
         .then(()=>{
             res.send({succeess:true});
         })
