@@ -8,7 +8,8 @@ const local = sequelize.define("local", {
     state: DataTypes.CHAR,
     balance25mt: DataTypes.BOOLEAN,
     address: DataTypes.TEXT,
-    phone: DataTypes.CHAR
+    phone: DataTypes.CHAR,
+    email: DataTypes.CHAR
 })
 
 module.exports = local;
